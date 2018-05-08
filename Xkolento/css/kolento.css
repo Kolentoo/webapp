@@ -1,0 +1,29 @@
+
+/*公共样式*/
+html,body{background: #fff;}
+
+/*轮播菜单*/
+#app .mui-slider-item:nth-child(1) {background: url('../images/bj16.jpg') no-repeat center center;background-size: cover;}
+#app .mui-slider-item:nth-child(2) {background: url('../images/bj17.jpg') no-repeat center center;background-size: cover;}
+#app .mui-slider-item:nth-child(3) {background: url('../images/bj4.jpg') no-repeat center center;background-size: cover;}
+#app .mui-slider-item:nth-child(4) {background: url('../images/bj20.jpg') no-repeat center center;background-size: cover;}
+#app .mui-slider-item:nth-child(5) {background: url('../images/bj13.jpg') no-repeat center center;background-size: cover;}
+.mask {background: rgba(0,0,0,0.1);position: absolute;width: 100%;height: 100%;display: flex;justify-content: center;
+align-items: center;}
+.titlebox {text-align: center;width: 100%;font-family: 'druk_pierre_testregular';text-transform: uppercase;
+letter-spacing: 0.8rem;}
+.titlebox p{color:#fff;}
+.titlebox .p1 {font-size: 5rem;margin-bottom: 4.5rem;}
+.titlebox .p2 {font-size: 3rem;}
+
+/*首页展示*/
+#index {background: url('../images/bj2.jpg') no-repeat center center;background-size: cover;display: flex;width: 100%;height: 100%;align-items: center;}
+#index .msgbox {text-align: center;margin:0 auto;}
+#index .p1 {font-size: 3rem;color:#fff;display: inline-block;margin:0 1rem;}
+#index .p2 {color:#fff;font-size: 3.6rem;margin-top: 1rem;}
+#index .menubtn {background: url('../images/menu.png') no-repeat center center;width: 4.4rem;height: 4.4rem;position: absolute;top: 2rem;left: 2rem;
+z-index:50;background-size: 100%;}
+
+/*全局菜单栏*/
+.mui-bar {position: fixed;top: 0;left: 0;background: none;}
+.mui-bar .mui-icon {font-size: 4rem;}
