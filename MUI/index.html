@@ -1,0 +1,562 @@
+
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet" />
+	    <link rel="stylesheet" type="text/css" href="css/core.css"/>
+	    <link rel="stylesheet" href="css/kolento.css" />
+		<style>
+			html,body {background-color: #efeff4;}
+			.title {margin: 20px 15px 10px;color: #6d6d72;font-size: 15px;padding-bottom: 51px;}
+		</style>
+	</head>
+	
+	<body>
+		<div class="index" id="index">
+			<div class="mui-slider" id="mslider">
+			    <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+			        <a class="mui-control-item" href="#item1">推荐</a>
+			        <a class="mui-control-item" href="#item2">分类</a>
+			    </div>
+			    <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+			    <div class="mui-slider-group" id="scroll">
+			        <div id="item1" class="mui-slider-item mui-control-content mui-active">
+			        	<div class="section">
+				        	<h2 class="vtitle b">正在热映</h2>
+							<mshow :movietype="now"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">即将上映</h2>
+							<mshow :movietype="comeing"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">口碑榜单</h2>
+							<mshow :movietype="ranking"></mshow>
+						</div>
+			        </div>
+			        <div id="item2" class="mui-slider-item mui-control-content">
+			        	<div class="section">
+				        	<h2 class="vtitle b">动漫榜单</h2>
+							<mshow :movietype="anime"></mshow>
+						</div>
+		                <div class="section">
+		                    <h2 class="vtitle b">剧情榜单</h2>
+		                    <mshow :movietype="story"></mshow>
+		                </div>
+		                <div class="section">
+		                    <h2 class="vtitle b">喜剧榜单</h2>
+		                    <mshow :movietype="happy"></mshow>
+		                </div>
+		                <div class="section">
+		                    <h2 class="vtitle b">动作榜单</h2>
+		                    <mshow :movietype="act"></mshow>
+		                </div>
+		                <div class="section">
+		                    <h2 class="vtitle b">爱情榜单</h2>
+		                    <mshow :movietype="love"></mshow>
+		                </div>
+		                <div class="section">
+		                    <h2 class="vtitle b">科幻榜单</h2>
+		                    <mshow :movietype="scientist"></mshow>
+		                </div>
+		                <div class="section">
+		                    <h2 class="vtitle b">惊悚榜单</h2>
+		                    <mshow :movietype="scare"></mshow>
+		                </div>
+		                <div class="section">
+		                    <h2 class="vtitle b">恐怖榜单</h2>
+		                    <mshow :movietype="horror"></mshow>
+		                </div>
+		                <div class="section">
+		                    <h2 class="vtitle b">灾难榜单</h2>
+		                    <mshow :movietype="disaster"></mshow>
+		                </div>
+			        </div>
+			    </div>
+			</div>
+	    </div>
+	    
+		<!--<div id="app"></div>-->
+		
+		<script src="js/util.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    	<script src="js/kolento.js"></script>
+    	<script src="js/movieshow.js"></script>
+		<script>
+			(function() {
+				mui.init({
+					swipeBack: false //启用右滑关闭功能
+				});
+				mui('.moviescroll').scroll({
+					scrollY: false, //是否竖向滚动
+					scrollX: true, //是否横向滚动
+					startX: 0, //初始化时滚动至x
+					startY: 0, //初始化时滚动至y
+					indicators: false, //是否显示滚动条
+					bounce: true, //是否启用回弹
+					deceleration: 0.0009 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+				});
+				mui('.scrolldown').scroll({
+					scrollY: true, //是否竖向滚动
+					scrollX: false, //是否横向滚动
+					startX: 0, //初始化时滚动至x
+					startY: 0, //初始化时滚动至y
+					indicators: false, //是否显示滚动条
+					bounce: true, //是否启用回弹
+					deceleration: 0.0009 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+				});
+				mui.plusReady(function() {
+					var self = plus.webview.currentWebview(),
+						leftPos = Math.ceil((window.innerWidth - 60) / 2); // 设置凸起大图标为水平居中
+
+					/**	
+					 * drawNativeIcon 绘制带边框的半圆，
+					 * 实现原理：
+					 *   id为bg的tag 创建带边框的圆
+					 *   id为bg2的tag 创建白色矩形遮住圆下半部分，只显示凸起带边框部分
+					 * 	 id为iconBg的红色背景图
+					 *   id为icon的字体图标
+					 *   注意创建先后顺序，创建越晚的层级越高
+					 */
+					var drawNativeIcon = util.drawNative('icon', {
+						bottom: '5px',
+						left: leftPos + 'px',
+						width: '60px',
+						height: '60px'
+					}, [{
+						tag: 'rect',
+						id: 'bg',
+						position: {
+							top: '1px',
+							left: '0px',
+							width: '100%',
+							height: '100%'
+						},
+						rectStyles: {
+							color: '#fff',
+							radius: '50%',
+							borderColor: '#ccc',
+							borderWidth: '1px'
+						}
+					}, {
+						tag: 'rect',
+						id: 'bg2',
+						position: {
+							bottom: '-0.5px',
+							left: '0px',
+							width: '100%',
+							height: '45px'
+						},
+						rectStyles: {
+							color: '#fff'
+						}
+					}, {
+						tag: 'rect',
+						id: 'iconBg',
+						position: {
+							top: '5px',
+							left: '5px',
+							width: '50px',
+							height: '50px'
+						},
+						rectStyles: {
+							color: '#d74b28',
+							radius: '50%'
+						}
+					}, {
+						tag: 'font',
+						id: 'icon',
+						text: '\ue600', //此为字体图标Unicode码'\e600'转换为'\ue600'
+						position: {
+							top: '0px',
+							left: '5px',
+							width: '50px',
+							height: '100%'
+						},
+						textStyles: {
+							fontSrc: '_www/fonts/iconfont.ttf',
+							align: 'center',
+							color: '#fff',
+							size: '30px'
+						}
+					}]);
+					// append 到父webview中
+					self.append(drawNativeIcon);
+
+					//自定义监听图标点击事件
+					var active_color = '#fff';
+					drawNativeIcon.addEventListener('click', function(e) {
+						mui.alert('你点击了图标，你在此可以打开摄像头或者新窗口等自定义点击事件。', '悬浮球点击事件');
+						// 重绘字体颜色
+						if(active_color == '#fff') {
+							drawNativeIcon.drawText('\ue600', {}, {
+								fontSrc: '_www/fonts/iconfont.ttf',
+								align: 'center',
+								color: '#000',
+								size: '30px'
+							}, 'icon');
+							active_color = '#000';
+						} else {
+							drawNativeIcon.drawText('\ue600', {}, {
+								fontSrc: '_www/fonts/iconfont.ttf',
+								align: 'center',
+								color: '#fff',
+								size: '30px'
+							}, 'icon');
+							active_color = '#fff';
+						}
+
+					});
+					// 中间凸起图标绘制及监听点击完毕
+
+					// 创建子webview窗口 并初始化
+					var aniShow = {};
+					util.initSubpage(aniShow);
+					
+					var 	nview = plus.nativeObj.View.getViewById('tabBar'),
+						activePage = plus.webview.currentWebview(),
+						targetPage,
+						subpages = util.options.subpages,
+						pageW = window.innerWidth,
+						currIndex = 0;
+					
+						
+					/**
+					 * 根据判断view控件点击位置判断切换的tab
+					 */
+					nview.addEventListener('click', function(e) {
+						var clientX = e.clientX;
+						if(clientX > 0 && clientX <= parseInt(pageW * 0.25)) {
+							currIndex = 0;
+						} else if(clientX > parseInt(pageW * 0.25) && clientX <= parseInt(pageW * 0.45)) {
+							currIndex = 1;
+						} else if(clientX > parseInt(pageW * 0.45) && clientX <= parseInt(pageW * 0.8)) {
+							currIndex = 2;
+						} else {
+							currIndex = 3;
+						}
+						// 匹配对应tab窗口	
+						if(currIndex > 0) {
+							targetPage = plus.webview.getWebviewById(subpages[currIndex - 1]);
+						} else {
+							targetPage = plus.webview.currentWebview();
+						}
+
+						if(targetPage == activePage) {
+							return;
+						}
+
+						if(currIndex !== 3) { 
+							//底部选项卡切换
+							util.toggleNview(currIndex);
+							// 子页面切换
+							util.changeSubpage(targetPage, activePage, aniShow);
+							//更新当前活跃的页面
+							activePage = targetPage;
+						} else {
+							//第四个tab 打开新窗口
+							plus.webview.open('html/new-webview.html', 'new', {}, 'slide-in-right', 200);
+						}
+					});
+				});
+			})();
+			
+			var index = new Vue({
+				el: '#index',
+				data(){
+					return{
+		                now:{
+		                    images:{
+		                        large:'',
+		                        small:''
+		                    },
+		                    rating:{
+		                        average:''
+		                    }
+		                },
+		                comeing:{
+		                    images:{
+		                        large:'',
+		                        small:''
+		                    },
+		                    rating:{
+		                        average:''
+		                    }
+		                },
+		                ranking:{
+		                    images:{
+		                        large:'',
+		                        small:''
+		                    },
+		                    rating:{
+		                        average:''
+		                    }
+		                },
+		                america:{
+		                    images:{
+		                        large:'',
+		                        small:''
+		                    },
+		                    rating:{
+		                        average:''
+		                    }
+		                },
+		                anime:'',
+		                story:'',
+		                happy:'',
+		                act:'',
+		                love:'',
+		                scientist:'',
+		                scare:'',
+		                horror:'',
+		                disaster:''
+					}
+				},
+				created(){
+		        	let myDate = new Date();
+		            let day = myDate.getDate();
+		            let firstday = localStorage.getItem('today')
+		            
+		            if(firstday!=day){
+		            	localStorage.setItem('today',day)
+		                this.nowapi();
+		                this.comingapi();
+		                this.topapi();
+		                this.toplistapi();
+		                this.topstoryapi();
+		                this.tophappyapi();
+		                this.topactapi();
+		                this.toploveapi();
+		                this.topscientistapi();
+		                this.topscareapi();
+		                this.tophorrorapi();
+		                this.topdisasterapi();
+		            }else{
+		                let now = localStorage.getItem('now');
+		                if(now){
+		                    let nowJson = JSON.parse(now)
+		                    console.log(nowJson)
+		                    this.now = nowJson
+		                }else{
+		                    this.nowapi();
+		                }
+		
+		                let comeing = localStorage.getItem('comeing');
+		                if(comeing){
+		                    let comeingJson = JSON.parse(comeing)
+		                    console.log(comeingJson)
+		                    this.comeing = comeingJson
+		                }else{
+		                    this.comingapi();
+		                }
+		
+		                let ranking = localStorage.getItem('ranking');
+		                if(ranking){
+		                    let rankingJson = JSON.parse(ranking)
+		                    console.log(rankingJson)
+		                    this.ranking = rankingJson
+		                }else{
+		                    this.topapi();
+		                }
+
+		                let anime = localStorage.getItem('anime');
+		                if(anime){
+		                    let animeJson = JSON.parse(anime)
+		                    this.anime = animeJson
+		                }else{
+		                    this.toplistapi();
+		                }
+		                
+		                let story = localStorage.getItem('stories');
+		                if(story){
+		                    let storyJson = JSON.parse(story)
+		                    this.story = storyJson
+		                }else{
+		                    this.topstoryapi();
+		                }
+		
+		                let happy = localStorage.getItem('happy');
+		                if(happy){
+		                    let happyJson = JSON.parse(happy)
+		                    this.happy = happyJson
+		                }else{
+		                    this.tophappyapi();
+		                }
+		
+		                let act = localStorage.getItem('act');
+		                if(act){
+		                    let actJson = JSON.parse(act)
+		                    this.act = actJson
+		                }else{
+		                    this.topactapi();
+		                }
+		
+		                let love = localStorage.getItem('love');
+		                if(love){
+		                    let loveJson = JSON.parse(love)
+		                    this.love = loveJson
+		                }else{
+		                    this.toploveapi();
+		                }
+		
+		                let scientist = localStorage.getItem('scientist');
+		                if(scientist){
+		                    let scientistJson = JSON.parse(scientist)
+		                    this.scientist = scientistJson
+		                }else{
+		                    this.topscientistapi();
+		                }
+		
+		                let scare = localStorage.getItem('scare');
+		                if(scare){
+		                    let scareJson = JSON.parse(scare)
+		                    this.scare = scareJson
+		                }else{
+		                    this.topscareapi();
+		                }
+		
+		                let horror = localStorage.getItem('horror');
+		                if(horror){
+		                    let horrorJson = JSON.parse(horror)
+		                    this.horror = horrorJson
+		                }else{
+		                    this.tophorrorapi();
+		                }
+		
+		                let disaster = localStorage.getItem('disaster');
+		                if(disaster){
+		                    let disasterJson = JSON.parse(disaster)
+		                    this.disaster = disasterJson
+		                }else{
+		                }
+		            }
+			
+				},
+				mounted(){
+			
+				},
+				methods:{
+					nowapi(){
+			            axios.get(`https://xkolento.cn/v2/movie/in_theaters`,{
+			                params:{}
+			            }).then(res=>{
+			                this.now=res.data.subjects;
+			                let nowstr = JSON.stringify(res.data.subjects)
+			                localStorage.setItem('now', nowstr);
+			                console.log(this.now)
+			            })
+					},
+		            comingapi(){
+		                axios.get(`https://xkolento.cn/v2/movie/coming_soon`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.comeing=res.data.subjects;
+		                    let comeingstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('comeing', comeingstr);
+		                })
+		            },
+		            topapi(){
+		                axios.get(`https://xkolento.cn/v2/movie/top250`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.ranking=res.data.subjects;
+		                    let rankingstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('ranking', rankingstr);
+		                    this.load=false
+		                })
+		            },
+		        	toplistapi(){
+		                axios.get(`https://xkolento.cn/chart/top_list`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.anime=res.data;
+		                    let animestr = JSON.stringify(res.data)
+		                    localStorage.setItem('anime', animestr);
+		                })
+		            },
+				    topstoryapi(){
+		                axios.get(`https://xkolento.cn/chart/top_story`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.story=res.data;
+		                    let storystr = JSON.stringify(res.data)
+		                    localStorage.setItem('stories', storystr);
+		                })
+		            },
+		            tophappyapi(){
+		                axios.get(`https://xkolento.cn/chart/top_happy`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.happy=res.data;
+		                    let happystr = JSON.stringify(res.data)
+		                    localStorage.setItem('happy', happystr);
+		                })
+		            },
+		            topactapi(){
+		                axios.get(`https://xkolento.cn/chart/top_act`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.act=res.data;
+		                    let actstr = JSON.stringify(res.data)
+		                    localStorage.setItem('act', actstr);
+		                })
+		            },
+		            toploveapi(){
+		                axios.get(`https://xkolento.cn/chart/top_love`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.love=res.data;
+		                    let lovestr = JSON.stringify(res.data)
+		                    localStorage.setItem('love', lovestr);
+		                })
+		            },
+		            topscientistapi(){
+		                axios.get(`https://xkolento.cn/chart/top_scientist`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.scientist=res.data;
+		                    let scientiststr = JSON.stringify(res.data)
+		                    localStorage.setItem('scientist', scientiststr);
+		                })
+		            },
+		            topscareapi(){
+		                axios.get(`https://xkolento.cn/chart/top_scare`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.scare=res.data;
+		                    let scarestr = JSON.stringify(res.data)
+		                    localStorage.setItem('scare', scarestr);
+		                })
+		            },
+		            tophorrorapi(){
+		                axios.get(`https://xkolento.cn/chart/top_horror`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.horror=res.data;
+		                    let horrorstr = JSON.stringify(res.data)
+		                    localStorage.setItem('horror', horrorstr);
+		                })
+		            },
+		            topdisasterapi(){
+		                axios.get(`https://xkolento.cn/chart/top_disaster`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.disaster=res.data;
+		                    let disasterstr = JSON.stringify(res.data)
+		                    localStorage.setItem('disaster', disasterstr);
+		                })
+		            }
+
+				}
+				
+			})
+		</script>
+	</body>
+
+</html>
