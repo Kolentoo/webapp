@@ -6,7 +6,7 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
 		<title>首页</title>
-		<script src="js/mui.min.js"></script>
+		<script src="js/mui.js"></script>
 		<link href="css/mui.min.css" rel="stylesheet" />
 	    <link rel="stylesheet" type="text/css" href="css/core.css"/>
 	    <link rel="stylesheet" href="css/kolento.css" />
@@ -24,8 +24,8 @@
 			        <a class="mui-control-item" href="#item2">分类</a>
 			    </div>
 			    <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
-			    <div class="mui-slider-group" id="scroll">
-			        <div id="item1" class="mui-slider-item mui-control-content mui-active">
+			    <div class="mui-slider-group" id="indexscroll">
+			        <div id="item1" class="mslide mui-slider-item mui-control-content mui-active">
 			        	<div class="section">
 				        	<h2 class="vtitle b">正在热映</h2>
 							<mshow :movietype="now"></mshow>
@@ -39,7 +39,7 @@
 							<mshow :movietype="ranking"></mshow>
 						</div>
 			        </div>
-			        <div id="item2" class="mui-slider-item mui-control-content">
+			        <div id="item2" class="mslide mui-slider-item mui-control-content">
 			        	<div class="section">
 				        	<h2 class="vtitle b">动漫榜单</h2>
 							<mshow :movietype="anime"></mshow>
@@ -81,8 +81,7 @@
 			</div>
 	    </div>
 	    
-		<!--<div id="app"></div>-->
-		
+
 		<script src="js/util.js"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -93,23 +92,8 @@
 				mui.init({
 					swipeBack: false //启用右滑关闭功能
 				});
-				mui('.moviescroll').scroll({
-					scrollY: false, //是否竖向滚动
-					scrollX: true, //是否横向滚动
-					startX: 0, //初始化时滚动至x
-					startY: 0, //初始化时滚动至y
-					indicators: false, //是否显示滚动条
-					bounce: true, //是否启用回弹
-					deceleration: 0.0009 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
-				});
-				mui('.scrolldown').scroll({
-					scrollY: true, //是否竖向滚动
-					scrollX: false, //是否横向滚动
-					startX: 0, //初始化时滚动至x
-					startY: 0, //初始化时滚动至y
-					indicators: false, //是否显示滚动条
-					bounce: true, //是否启用回弹
-					deceleration: 0.0009 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+				document.querySelector('.mui-slider').addEventListener('slide', function(event) {
+
 				});
 				mui.plusReady(function() {
 					var self = plus.webview.currentWebview(),
@@ -130,7 +114,7 @@
 						width: '60px',
 						height: '60px'
 					}, [{
-						tag: 'rect',
+						tag: '',
 						id: 'bg',
 						position: {
 							top: '1px',
@@ -138,7 +122,7 @@
 							width: '100%',
 							height: '100%'
 						},
-						rectStyles: {
+						textStyles: {
 							color: '#fff',
 							radius: '50%',
 							borderColor: '#ccc',
@@ -172,15 +156,15 @@
 					}, {
 						tag: 'font',
 						id: 'icon',
-						text: '\ue600', //此为字体图标Unicode码'\e600'转换为'\ue600'
+						text: '\ue611', //此为字体图标Unicode码'\e600'转换为'\ue600'
 						position: {
-							top: '0px',
+							top: '2px',
 							left: '5px',
 							width: '50px',
 							height: '100%'
 						},
 						textStyles: {
-							fontSrc: '_www/fonts/iconfont.ttf',
+							fontSrc: '_www/fonts/menu.ttf',
 							align: 'center',
 							color: '#fff',
 							size: '30px'
@@ -195,16 +179,16 @@
 						mui.alert('你点击了图标，你在此可以打开摄像头或者新窗口等自定义点击事件。', '悬浮球点击事件');
 						// 重绘字体颜色
 						if(active_color == '#fff') {
-							drawNativeIcon.drawText('\ue600', {}, {
-								fontSrc: '_www/fonts/iconfont.ttf',
+							drawNativeIcon.drawText('\ue611', {}, {
+								fontSrc: '_www/fonts/menu.ttf',
 								align: 'center',
 								color: '#000',
 								size: '30px'
 							}, 'icon');
 							active_color = '#000';
 						} else {
-							drawNativeIcon.drawText('\ue600', {}, {
-								fontSrc: '_www/fonts/iconfont.ttf',
+							drawNativeIcon.drawText('\ue611', {}, {
+								fontSrc: '_www/fonts/menu.ttf',
 								align: 'center',
 								color: '#fff',
 								size: '30px'
@@ -266,9 +250,10 @@
 					});
 				});
 			})();
+		
 			
 			var index = new Vue({
-				el: '#index',
+				el: '#indexscroll',
 				data(){
 					return{
 		                now:{

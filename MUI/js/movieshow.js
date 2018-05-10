@@ -2,7 +2,7 @@
 var mshow = 
 `<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted moviescroll">
     <div class="mui-scroll clearfix">
-        <a class="mui-control-item block videolist" v-for="item in movietype">
+        <a class="mui-control-item block videolist" v-for="(item,idx) in movietype" :key="idx">
         	<div class="chart" @tap="godetail(item.id,item.title)">
 	            <img class="show-pic vm g10" v-if="item.images" :src="'https://images.weserv.nl/?url='+item.images.small.substring(7)" alt="">
 				<img class="show-pic vm g10" v-if="item.cover_url" :src="'https://images.weserv.nl/?url='+item.cover_url.substring(7)" alt="">
@@ -83,10 +83,26 @@ var mshow =
     </div>
 </div>`
 
+
+
+mui('.moviescroll').scroll({
+	scrollY: true, //是否竖向滚动
+	scrollX: true, //是否横向滚动
+	startX: 0, //初始化时滚动至x
+	startY: 0, //初始化时滚动至y
+	indicators: false, //是否显示滚动条
+	bounce: true, //是否启用回弹
+	deceleration: 0.0009 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+});
+
 Vue.component('mshow', {
     template: mshow,
     props:['movietype'],
-    data: '',
+    data(){
+    	return{
+
+    	}
+    },
     created(){
 
     },

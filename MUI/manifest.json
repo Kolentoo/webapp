@@ -125,7 +125,7 @@
 						{
 							"tag": "font",
 							"id": "indexIcon",
-							"text": "\ue500",
+							"text": "\ue6d8",
 							"position": {
 								"top": "4px",
 								"left": "0",
@@ -133,14 +133,14 @@
 								"height": "24px"
 							},
 							"textStyles": {
-								"fontSrc": "_www/fonts/mui.ttf",
+								"fontSrc": "_www/fonts/menu.ttf",
 								"align": "center",
 								"size": "24px"
 							}
 						}, {
 							"tag": "font",
 							"id": "indexText",
-							"text": "首页",
+							"text": "电影",
 							"position": {
 								"top": "23px",
 								"left": "0",
@@ -154,7 +154,7 @@
 						},{
 							"tag": "font",
 							"id": "newsIcon",
-							"text": "\ue201",
+							"text": "\ue604",
 							"position": {
 								"top": "4px",
 								"left": "20%",
@@ -162,14 +162,14 @@
 								"height": "24px"
 							},
 							"textStyles": {
-								"fontSrc": "_www/fonts/mui.ttf",
+								"fontSrc": "_www/fonts/menu.ttf",
 								"align": "center",
 								"size": "24px"
 							}
 						}, {
 							"tag": "font",
 							"id": "newsText",
-							"text": "消息",
+							"text": "电视",
 							"position": {
 								"top": "23px",
 								"left": "20%",
@@ -183,7 +183,7 @@
 						},{
 							"tag": "font",
 							"id": "contactIcon",
-							"text": "\ue100",
+							"text": "\ue608",
 							"position": {
 								"top": "4px",
 								"left": "55%",
@@ -191,14 +191,14 @@
 								"height": "24px"
 							},
 							"textStyles": {
-								"fontSrc": "_www/fonts/mui.ttf",
+								"fontSrc": "_www/fonts/menu.ttf",
 								"align": "center",
 								"size": "24px"
 							}
 						}, {
 							"tag": "font",
 							"id": "contactText",
-							"text": "通讯录",
+							"text": "动漫",
 							"position": {
 								"top": "24px",
 								"left": "55%",
@@ -212,7 +212,7 @@
 						},{
 							"tag": "font",
 							"id": "newwindowIcon",
-							"text": "\ue6c9",
+							"text": "\ue64b",
 							"position": {
 								"top": "4px",
 								"left": "75%",
@@ -220,14 +220,14 @@
 								"height": "24px"
 							},
 							"textStyles": {
-								"fontSrc": "_www/fonts/iconfont.ttf",
+								"fontSrc": "_www/fonts/menu.ttf",
 								"align": "center",
 								"size": "24px"
 							}
 						}, {
 							"tag": "font",
 							"id": "newwindowText",
-							"text": "新窗口",
+							"text": "榜单",
 							"position": {
 								"top": "24px",
 								"left": "75%",

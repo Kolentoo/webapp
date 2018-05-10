@@ -1,0 +1,163 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+	    <link rel="stylesheet" type="text/css" href="../css/core.css"/>
+	    <link rel="stylesheet" href="../css/kolento.css" />
+	</head>
+
+	<body>
+	    <div class="person" id="person">
+	        <div class="content">
+	            <div class="infobox clearfix">
+	                <img class="actor-pic fl" :src="'https://images.weserv.nl/?url='+info.avatars.large.substring(7)" alt="">
+	                <div class="infotext">
+	                    <p class="name b">{{info.name}}</p>
+	                    <p class="enname"><b>英文名：</b>{{info.name_en}}</p>
+	                    <p class="bornplace"><b>出生地：</b>{{info.born_place}}</p>
+	                    <p class="nickname"><b>别名：</b><em v-for="(name,idx) in info.aka" :key="idx">{{name}} </em> </p>
+	                </div>
+	            </div>
+	            <div class="works">
+	                <h2 class="b">代表作品</h2>
+	                <ul class="work-con">
+	                    <li class="work-list clearfix" v-for="(work,idx) in info.works" :key="idx" @tap="moredetail(work.subject.id,work.subject.title)">
+	                        <img class="work-pic fl" :src="'https://images.weserv.nl/?url='+work.subject.images.large.substring(7)" alt="">
+	                        <div class="work-detail">
+	                            <p class="workname b">{{work.subject.title}}</p>
+	                            <p class="originname">{{work.subject.original_title}}</p>
+	                            <p class="other">
+	                                年份：{{work.subject.year}}
+	                                <em class="types" v-for="(item,idx) in work.subject.genres" :key="idx">{{item}} </em>
+	                            </p>
+	                            <p class="comment-num">{{work.subject.collect_count}} 人评价</p>
+	                            <div class="score-box clearfix">
+	                                <div class="score fl">
+	                                    <div v-if="work.subject.rating.average >= 9">
+	                                        <div class="star10"></div>
+	                                    </div>
+	                                    <div v-else-if="work.subject.rating.average >= 8 && work.subject.rating.average <9">
+	                                        <div class="star9"></div>
+	                                    </div>
+	                                    <div v-else-if="work.subject.rating.average >= 7 && work.subject.rating.average <8">
+	                                        <div class="star8"></div>
+	                                    </div>
+	                                    <div v-else-if="work.subject.rating.average >= 6 && work.subject.rating.average <7">
+	                                        <div class="star7"></div>
+	                                    </div>
+	                                    <div v-else-if="work.subject.rating.average >= 5 && work.subject.rating.average <6">
+	                                        <div class="star6"></div>
+	                                    </div>
+	                                    <div v-else-if="work.subject.rating.average >= 4 && work.subject.rating.average <5">
+	                                        <div class="star5"></div>
+	                                    </div>
+	                                    <div v-else-if="work.subject.rating.average >= 3 && work.subject.rating.average <4">
+	                                        <div class="star4"></div>
+	                                    </div>
+	                                    <div v-else-if="work.subject.rating.average >= 2 && work.subject.rating.average <3">
+	                                        <div class="star3"></div>
+	                                    </div>
+	                                    <div v-else-if="work.subject.rating.average >= 1 && work.subject.rating.average <0">
+	                                        <div class="star2"></div>
+	                                    </div>
+	                                    <div v-else>
+	                                        <div class="star1"></div>
+	                                    </div>
+	                                </div>
+	                                <div class="scorenum fl">{{work.subject.rating.average}}</div>
+	                            </div>
+	                        </div>
+	                    </li>
+	                </ul>
+	            </div>
+	        </div>
+	    </div>
+		
+		<script src="../js/mui.min.js"></script>
+		<script src="../js/util.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script>
+			mui.init()
+			
+			var person = new Vue({
+				el:'#person',
+				data(){
+					return{
+		                info:{
+		                    avatars:{
+		                        large:''
+		                    },
+		                    works:[
+		                        {
+		                            subject:{
+		                                rating:{
+		                                    average:''
+		                                },
+		                                genres:'',
+		                                title:'',
+		                                casts:{
+		                                    avatars:{
+		                                        large:''
+		                                    },
+		                                    name:'',
+		                                    id:''
+		                                },
+		                                collect_count:'',
+		                                original_title:'',
+		                                directors:'',
+		                                year:'',
+		                                images:{
+		                                    large:''
+		                                },
+		                                id:''
+		                            }
+		                        }
+		                    ]
+		                }
+					}
+				},
+				created(){
+		            let curl = window.location.href;
+		            let pid = curl.split('?')[1];
+		            axios.get(`https://xkolento.cn/movie/person/${pid}`,{
+		
+		            }).then(res=>{
+		                this.info=res.data;
+		                console.log(this.info.works)
+		            })
+				},
+				methods:{
+					moredetail(mid,mname){
+						mui.openWindow({
+						  url: `detail.html?mid=${mid}`,
+						  id: mid,
+						  styles: {                             // 窗口参数 参考5+规范中的WebviewStyle,也就是说WebviewStyle下的参数都可以在此设置
+						    titleNView: {                       // 窗口的标题栏控件
+						      titleText:mname,                // 标题栏文字,当不设置此属性时，默认加载当前页面的标题，并自动更新页面的标题
+						      titleColor:"#333",             // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"
+						      titleSize:"17px",                 // 字体大小,默认17px
+						      backgroundColor:"#F7F7F7",        // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
+						      progress:{                        // 标题栏控件的进度条样式
+						        color:"#00FF00",                // 进度条颜色,默认值为"#00FF00"  
+						        height:"2px"                    // 进度条高度,默认值为"2px"         
+						      },
+						      splitLine:{                       // 标题栏控件的底部分割线，类似borderBottom
+						        color:"#CCCCCC",                // 分割线颜色,默认值为"#CCCCCC"  
+						        height:"1px"                    // 分割线高度,默认值为"2px"
+						      },
+						      autoBackButton:true
+						    }
+						  }
+						});
+					}
+				}
+			})
+		</script>
+	</body>
+
+</html>

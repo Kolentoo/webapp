@@ -25,18 +25,18 @@ letter-spacing: 4px}
 z-index:50;background-size: 100%;}
 
 /*影片滚动板块*/
-#scroll .section {margin-left: 10px;}
-#scroll .mui-slider-item .mui-scroll {padding-bottom: 80px;}
-#scroll .mui-segmented-control.mui-scroll-wrapper .mui-control-item {padding:0;margin-right: 10px;}
-#scroll .mui-segmented-control.mui-scroll-wrapper {height: 250px;}
-#scroll .mui-segmented-control.mui-scroll-wrapper .mui-scroll {height:250px;}
-#scroll .vtitle {font-size: 16px;margin: 10px 0;}
-#scroll .videolist {width: 140px;height: 250px;display: inline-block;}
-#scroll .videolist .show-pic {height: 190px;border-radius:8px;}
+#indexscroll .section {margin-left: 10px;}
+#indexscroll .mui-slider-item .mui-scroll {padding-bottom: 80px;}
+#indexscroll .mui-segmented-control.mui-scroll-wrapper .mui-control-item {padding:0;margin-right: 10px;}
+#indexscroll .mui-segmented-control.mui-scroll-wrapper {height: 250px;}
+#indexscroll .mui-segmented-control.mui-scroll-wrapper .mui-scroll {height:250px;}
+#indexscroll .vtitle {font-size: 16px;margin: 20px 0 10px 0;}
+#indexscroll .videolist {width: 140px;height: 250px;display: inline-block;}
+#indexscroll .videolist .show-pic {height: 190px;border-radius:8px;}
 
-#scroll .name {font-size: 14px;max-height:50px;overflow: hidden;margin: 4px 0 2px 0;line-height: 20px;}
-#scroll .type {font-size: 13px;}
-#scroll .score {font-size: 13px;display: flex;justify-content: center;}
+#indexscroll .name {font-size: 14px;max-height:50px;overflow: hidden;margin: 4px 0 2px 0;line-height: 20px;}
+#indexscroll .type {font-size: 13px;}
+#indexscroll .score {font-size: 13px;display: flex;justify-content: center;}
 .star10 {background: url('../images/stars.png') no-repeat 0 0;
 background-size: 100%;width: 75px;height: 15px;position: relative;top: 2px;}
 .star9 {background: url('../images/stars.png') no-repeat 0 -15px;
@@ -60,11 +60,11 @@ background-size: 100%;width: 75px;height: 15px;}
 .star0 {background: url('../images/stars.png') no-repeat 0 -150px;
 background-size: 100%;width: 75px;height: 15px;}
 .star {margin:0 auto;}
-#scroll .score-num {margin-left: 7px;color:#e09015;line-height: 20px;}
-#scroll .scrolldown {overflow: scroll;}
+#indexscroll .score-num {margin-left: 7px;color:#e09015;line-height: 20px;}
+#indexscroll .mui-slider-item {overflow: scroll;}
 
 /*选项卡*/
-.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {height: 100%;}
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {height: 100%;padding-bottom: 100px;}
 
 /*信息详情页*/
 #detail .mbanner {display:flex;justify-content: center;align-items: center;background:rgba(30,29,35,0.75);}
@@ -95,3 +95,27 @@ border-radius:8px;}
 #charactor .actor-list {text-align: center;width: 110px;margin-right: 10px;white-space: nowrap;}
 #charactor .actor-list img{width: 100%;border-radius:8px;}
 #charactor .chara-name {color:#333;font-size: 14px;margin-top: 3px;line-height: 20px;}
+
+/*人物详情*/
+#person .mbox {background:rgba(30,29,35,0.75);}
+#person .mtop {display: flex;justify-content: space-between;color:#fff;font-size: 15px;padding: 10px;}
+#person .mtop img{width: 18px;height: 18px;}
+#person .content {padding: 10px;margin-top: 10px;}
+#person .content .actor-pic {width: 150px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.2);}
+#person .content .infotext {margin:0 10px 0 160px;}
+#person .infotext .name {font-size: 20px;margin-top: 10px;}
+#person .infotext .enname {font-size: 14px;margin-top: 25px;}
+#person .infotext .bornplace {font-size: 14px;margin-bottom: 5px;}
+#person .infotext .nickname {font-size: 14px;}
+#person .works {margin-top: 40px;}
+#person .works h2{font-size: 15px;margin-bottom: 12px;}
+#person .works .work-list {padding-bottom: 10px;margin-bottom: 10px;}
+#person .work-detail {margin:12px 0 0 110px;}
+#person .work-pic {width: 100px;border-radius:8px;box-shadow:0 0 10px rgba(0,0,0,0.2);}
+#person .workname {font-size: 16px;margin-bottom: 5px}
+#person .originname {color:#aaa;font-size: 14px;}
+#person .other {color:#aaa;font-size: 14px;}
+#person .types {margin-left: 5px;}
+#person .comment-num {font-size: 14pxcolor:#aaa;margin-top: 2px;}
+#person .score-box {margin-top: 2px;}
+#person .scorenum {color:#e09015;font-size: 14px;margin-left: 5px;}
