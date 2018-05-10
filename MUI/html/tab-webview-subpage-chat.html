@@ -9,141 +9,181 @@
 		<meta name="apple-mobile-web-app-status-bar-style" content="black">
 		<script src="../js/mui.min.js"></script>
 		<link rel="stylesheet" href="../css/mui.min.css">
-	    <link rel="stylesheet" type="text/css" href="css/core.css"/>
-	    <link rel="stylesheet" href="css/kolento.css" />
+	    <link rel="stylesheet" type="text/css" href="../css/core.css"/>
+	    <link rel="stylesheet" href="../css/kolento.css" />
 		<style>
 			html,
-			body {
-				background-color: #efeff4;
-				padding:150px 0;
-			}
-			
-			.title {
-				padding: 20px 15px 10px;
-				color: #6d6d72;
-				font-size: 15px;
-				background-color: #fff;
-			}
+			body {background-color: #efeff4;}
 		</style>
 	</head>
 
 	<body>
-		<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-		    <div class="mui-scroll">
-		        <a class="mui-control-item mui-active">
-		            ddddddddddddddddddddddddddddd
-		        </a>
-		        <a class="mui-control-item">
-		          热点
-		        </a>
-		        <a class="mui-control-item">
-		           北京
-		        </a>
-		        <a class="mui-control-item">
-		           社会
-		        </a>
-		        <a class="mui-control-item">
-		           娱乐
-		        </a>
-		        <a class="mui-control-item">
-		           科技
-		        </a>
-		    </div>
-		</div>
+			<div class="mui-slider" id="tv">
+			    <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+			        <a class="mui-control-item" href="#item1">热门</a>
+			        <a class="mui-control-item" href="#item2">美剧</a>
+			        <a class="mui-control-item" href="#item3">英剧</a>
+			        <a class="mui-control-item" href="#item4">韩剧</a>
+			        <a class="mui-control-item" href="#item5">日剧</a>
+			        <a class="mui-control-item" href="#item6">国剧</a>
+			        <a class="mui-control-item" href="#item7">港剧</a>
+			        <a class="mui-control-item" href="#item8">综艺</a>
+			    </div>
+			    <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-2"></div>
+			    <div class="mui-slider-group" id="indexscroll">
+			        <div id="item1" class="mslide mui-slider-item mui-control-content mui-active">
+			        	<div class="section">
+				        	<h2 class="vtitle b">最新推送</h2>
+							<mshow :movietype="hotnew"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">人气推荐</h2>
+							<mshow :movietype="hothot"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">口碑榜单</h2>
+							<mshow :movietype="hotnice"></mshow>
+						</div>
+			        </div>
+			        <div id="item2" class="mslide mui-slider-item mui-control-content">
+
+			        </div>
+			        <div id="item3" class="mslide mui-slider-item mui-control-content">
+
+			        </div>
+			        <div id="item4" class="mslide mui-slider-item mui-control-content">
+
+			        </div>
+			        <div id="item5" class="mslide mui-slider-item mui-control-content">
+
+			        </div>
+			        <div id="item6" class="mslide mui-slider-item mui-control-content">
+
+			        </div>
+			        <div id="item7" class="mslide mui-slider-item mui-control-content">
+
+			        </div>
+			        <div id="item8" class="mslide mui-slider-item mui-control-content">
+
+			        </div>
+			    </div>
+			</div>
 		
-		<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-		    <div class="mui-scroll">
-		        <a class="mui-control-item mui-active">
-		            ddddddddddddddddddddddddddddddddd
-		        </a>
-		        <a class="mui-control-item">
-		          热点
-		        </a>
-		        <a class="mui-control-item">
-		           北京
-		        </a>
-		        <a class="mui-control-item">
-		           社会
-		        </a>
-		        <a class="mui-control-item">
-		           娱乐
-		        </a>
-		        <a class="mui-control-item">
-		           科技
-		        </a>
-		    </div>
-		</div>
-		
-				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-		    <div class="mui-scroll">
-		        <a class="mui-control-item mui-active">
-		            aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-		        </a>
-		        <a class="mui-control-item">
-		          热点
-		        </a>
-		        <a class="mui-control-item">
-		           北京
-		        </a>
-		        <a class="mui-control-item">
-		           社会
-		        </a>
-		        <a class="mui-control-item">
-		           娱乐
-		        </a>
-		        <a class="mui-control-item">
-		           科技
-		        </a>
-		    </div>
-		</div>
-		
-				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-		    <div class="mui-scroll">
-		        <a class="mui-control-item mui-active">
-		         qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq
-		        </a>
-		        <a class="mui-control-item">
-		          热点
-		        </a>
-		        <a class="mui-control-item">
-		           北京
-		        </a>
-		        <a class="mui-control-item">
-		           社会
-		        </a>
-		        <a class="mui-control-item">
-		           娱乐
-		        </a>
-		        <a class="mui-control-item">
-		           科技
-		        </a>
-		    </div>
-		</div>
-		
-				<div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-		    <div class="mui-scroll">
-		        <a class="mui-control-item mui-active">
-		            cccccccccccccccccccccccccccccccccccc
-		        </a>
-		        <a class="mui-control-item">
-		          热点
-		        </a>
-		        <a class="mui-control-item">
-		           北京
-		        </a>
-		        <a class="mui-control-item">
-		           社会
-		        </a>
-		        <a class="mui-control-item">
-		           娱乐
-		        </a>
-		        <a class="mui-control-item">
-		           科技
-		        </a>
-		    </div>
-		</div>
-		
+		<script src="../js/util.js"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    	<script src="js/kolento.js"></script>
+	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    	<script src="../js/kolento.js"></script>
+    	<script src="../js/movieshow.js"></script>
+    	<script>
+    		(function() {
+    			mui.init();
+    		})();
+			var tv = new Vue({
+				el: '#tv',
+				data(){
+					return{
+		                hotnew:'',
+		                hothot:'',
+		                hotnice:'',
+		                americanew:'',
+		                americahot:'',
+		                americanice:'',
+		                englandnew:'',
+		                englandhot:'',
+		                englandnice:'',
+		                koreanew:'',
+		                koreahot:'',
+		                koreanice:'',
+		                japannew:'',
+		                japanhot:'',
+		                japannice:'',
+		                chinanew:'',
+		                chinahot:'',
+		                chinanice:'',
+		                hongkongnew:'',
+		                hongkonghot:'',
+		                hongkongnice:'',
+		                varietynew:'',
+		                varietyhot:'',
+		                varietynice:''
+					}
+				},
+				created(){
+		        	let myDate = new Date();
+		            let day = myDate.getDate();
+		            let firstday = localStorage.getItem('today')
+		            
+		            if(firstday!=day){
+		            	localStorage.setItem('today',day)
+		                this.hotnewapi();
+		                this.hothotapi();
+		                this.hotniceapi();
+		            }else{
+		                let hotnew = localStorage.getItem('hotnew');
+		                if(hotnew){
+		                    let hotnewJson = JSON.parse(hotnew)
+		                    console.log(hotnewJson)
+		                    this.hotnew = hotnewJson
+		                }else{
+		                    this.hotnewapi();
+		                }
+		
+		                let hothot = localStorage.getItem('hothot');
+		                if(hothot){
+		                    let hothotJson = JSON.parse(hothot)
+		                    console.log(hothotJson)
+		                    this.hothot = hothotJson
+		                }else{
+		                    this.hothotapi();
+		                }
+		
+		                let hotnice = localStorage.getItem('hotnice');
+		                if(hotnice){
+		                    let hotniceJson = JSON.parse(hotnice)
+		                    console.log(hotniceJson)
+		                    this.hotnice = hotniceJson
+		                    this.load=false
+		                }else{
+		                    this.hotniceapi();
+		                }
+		            }
+			
+				},
+				mounted(){
+			
+				},
+				methods:{
+		            hotnewapi(){
+		                axios.get(`http://xkolento.cn/hottv/new`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.hotnew=res.data.subjects;
+		                    let hotnewstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('hotnew', hotnewstr);
+		                })
+		            },
+		            hothotapi(){
+		                axios.get(`http://xkolento.cn/hottv/hot`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.hothot=res.data.subjects;
+		                    let hothotstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('hothot', hothotstr);
+		                })
+		            },
+		            hotniceapi(){
+		                axios.get(`http://xkolento.cn/hottv/nice`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.hotnice=res.data.subjects;
+		                    let hotnicestr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('hotnice', hotnicestr);
+		                    this.load=false
+		                })
+		            }
+				}
+				
+			})
+    	</script>
 	</body>
 </html>

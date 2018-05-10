@@ -79,7 +79,9 @@
 			        </div>
 			    </div>
 			</div>
-	    </div>
+	    
+
+		</div>
 	    
 
 		<script src="js/util.js"></script>
@@ -90,10 +92,7 @@
 		<script>
 			(function() {
 				mui.init({
-					swipeBack: false //启用右滑关闭功能
-				});
-				document.querySelector('.mui-slider').addEventListener('slide', function(event) {
-
+					swipeBack: true //启用右滑关闭功能
 				});
 				mui.plusReady(function() {
 					var self = plus.webview.currentWebview(),
@@ -114,7 +113,7 @@
 						width: '60px',
 						height: '60px'
 					}, [{
-						tag: '',
+						tag: 'rect',
 						id: 'bg',
 						position: {
 							top: '1px',
@@ -122,10 +121,10 @@
 							width: '100%',
 							height: '100%'
 						},
-						textStyles: {
-							color: '#fff',
+						rectStyles: {
+							color: '#f04d4e',
 							radius: '50%',
-							borderColor: '#ccc',
+							borderColor: '#f04d4e',
 							borderWidth: '1px'
 						}
 					}, {
@@ -138,7 +137,7 @@
 							height: '45px'
 						},
 						rectStyles: {
-							color: '#fff'
+							color: '#f04d4e'
 						}
 					}, {
 						tag: 'rect',
@@ -150,15 +149,15 @@
 							height: '50px'
 						},
 						rectStyles: {
-							color: '#d74b28',
+							color: '#b01112',
 							radius: '50%'
 						}
 					}, {
 						tag: 'font',
 						id: 'icon',
-						text: '\ue611', //此为字体图标Unicode码'\e600'转换为'\ue600'
+						text: '\ue6b4', //此为字体图标Unicode码'\e600'转换为'\ue600'
 						position: {
-							top: '2px',
+							top: '0px',
 							left: '5px',
 							width: '50px',
 							height: '100%'
@@ -179,15 +178,15 @@
 						mui.alert('你点击了图标，你在此可以打开摄像头或者新窗口等自定义点击事件。', '悬浮球点击事件');
 						// 重绘字体颜色
 						if(active_color == '#fff') {
-							drawNativeIcon.drawText('\ue611', {}, {
+							drawNativeIcon.drawText('\ue6b4', {}, {
 								fontSrc: '_www/fonts/menu.ttf',
 								align: 'center',
 								color: '#000',
 								size: '30px'
 							}, 'icon');
-							active_color = '#000';
+							active_color = '#b01112';
 						} else {
-							drawNativeIcon.drawText('\ue611', {}, {
+							drawNativeIcon.drawText('\ue6b4', {}, {
 								fontSrc: '_www/fonts/menu.ttf',
 								align: 'center',
 								color: '#fff',
@@ -541,6 +540,9 @@
 				}
 				
 			})
+		
+
+		
 		</script>
 	</body>
 

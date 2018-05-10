@@ -6,6 +6,7 @@ var mshow =
         	<div class="chart" @tap="godetail(item.id,item.title)">
 	            <img class="show-pic vm g10" v-if="item.images" :src="'https://images.weserv.nl/?url='+item.images.small.substring(7)" alt="">
 				<img class="show-pic vm g10" v-if="item.cover_url" :src="'https://images.weserv.nl/?url='+item.cover_url.substring(7)" alt="">
+				<img class="show-pic vm g10" v-if="item.cover" :src="'https://images.weserv.nl/?url='+item.cover.substring(7)" alt="">
 			</div>
 		    <p class="name">{{item.title}}</p>
 			<div class="score">
@@ -78,7 +79,44 @@ var mshow =
 
 	            <p class="score-num" v-if="item.score">{{item.score}}</p>
 	            <p class="score-num" v-if="item.subtype">{{item.rating.average}}</p>
+	            
+	            
+                <div class="score-box" v-if="item.rate">
+                    <div v-if="item.rate >= 9">
+                        <div class="star10"></div>
+                    </div>
+                    <div v-else-if="item.rate >= 8 && item.rate <9">
+                        <div class="star9"></div>
+                    </div>
+                    <div v-else-if="item.rate >= 7 && item.rate <8">
+                        <div class="star8"></div>
+                    </div>
+                    <div v-else-if="item.rate >= 6 && item.rate <7">
+                        <div class="star7"></div>
+                    </div>
+                    <div v-else-if="item.rate >= 5 && item.rate <6">
+                        <div class="star6"></div>
+                    </div>
+                    <div v-else-if="item.rate >= 4 && item.rate <5">
+                        <div class="star5"></div>
+                    </div>
+                    <div v-else-if="item.rate >= 3 && item.rate <4">
+                        <div class="star4"></div>
+                    </div>
+                    <div v-else-if="item.rate >= 2 && item.rate <3">
+                        <div class="star3"></div>
+                    </div>
+                    <div v-else-if="item.rate >= 1 && item.rate <0">
+                        <div class="star2"></div>
+                    </div>
+                    <div v-else>
+                        <div class="star1"></div>
+                    </div>
+                
+                </div>
+                <p class="score-num" v-if="item.rate">{{item.rate}}</p>
 	        </div>
+	        
         </a>
     </div>
 </div>`

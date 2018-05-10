@@ -110,7 +110,7 @@
 	"plus": {
 		"launchwebview": {
 			"bottom": "0px",
-			"background": "#fff",
+			"background": "#f04d4e",
 			"subNViews": [
 				{
 					"id": "tabBar",
@@ -119,7 +119,7 @@
 						"left": "0",
 						"height": "50px",
 						"width": "100%",
-						"backgroundColor": "#fff"
+						"backgroundColor": "#f04d4e"
 					},
 					"tags": [
 						{
@@ -127,7 +127,7 @@
 							"id": "indexIcon",
 							"text": "\ue6d8",
 							"position": {
-								"top": "4px",
+								"top": "6px",
 								"left": "0",
 								"width": "25%",
 								"height": "24px"
@@ -142,7 +142,7 @@
 							"id": "indexText",
 							"text": "电影",
 							"position": {
-								"top": "23px",
+								"top": "24px",
 								"left": "0",
 								"width": "25%",
 								"height": "24px"
@@ -156,7 +156,7 @@
 							"id": "newsIcon",
 							"text": "\ue604",
 							"position": {
-								"top": "4px",
+								"top": "6px",
 								"left": "20%",
 								"width": "25%",
 								"height": "24px"
@@ -171,7 +171,7 @@
 							"id": "newsText",
 							"text": "电视",
 							"position": {
-								"top": "23px",
+								"top": "25px",
 								"left": "20%",
 								"width": "25%",
 								"height": "24px"
@@ -185,7 +185,7 @@
 							"id": "contactIcon",
 							"text": "\ue608",
 							"position": {
-								"top": "4px",
+								"top": "6px",
 								"left": "55%",
 								"width": "25%",
 								"height": "24px"
@@ -200,7 +200,7 @@
 							"id": "contactText",
 							"text": "动漫",
 							"position": {
-								"top": "24px",
+								"top": "25px",
 								"left": "55%",
 								"width": "25%",
 								"height": "24px"
@@ -212,9 +212,9 @@
 						},{
 							"tag": "font",
 							"id": "newwindowIcon",
-							"text": "\ue64b",
+							"text": "\ue65a",
 							"position": {
-								"top": "4px",
+								"top": "6px",
 								"left": "75%",
 								"width": "25%",
 								"height": "24px"
@@ -227,9 +227,9 @@
 						}, {
 							"tag": "font",
 							"id": "newwindowText",
-							"text": "榜单",
+							"text": "发现",
 							"position": {
-								"top": "24px",
+								"top": "25px",
 								"left": "75%",
 								"width": "25%",
 								"height": "24px"

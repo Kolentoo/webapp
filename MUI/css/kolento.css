@@ -23,6 +23,8 @@ letter-spacing: 4px}
 #index .p2 {color:#fff;font-size: 18px;margin-top: 5px;}
 #index .menubtn {background: url('../images/menu.png') no-repeat center center;width: 22px;height: 22px;position: absolute;top: 20px;left: 20px;
 z-index:50;background-size: 100%;}
+#index .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar {background-color:#b01112;}
+#index .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {color:#b01112;}
 
 /*影片滚动板块*/
 #indexscroll .section {margin-left: 10px;}
@@ -119,3 +121,6 @@ border-radius:8px;}
 #person .comment-num {font-size: 14pxcolor:#aaa;margin-top: 2px;}
 #person .score-box {margin-top: 2px;}
 #person .scorenum {color:#e09015;font-size: 14px;margin-left: 5px;}
+
+/*tv*/
+#tv .mslide .vtitle{font-size: 15px;}
