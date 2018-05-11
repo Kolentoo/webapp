@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>TV</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../js/mui.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+	    <link rel="stylesheet" type="text/css" href="../css/core.css"/>
+	    <link rel="stylesheet" href="../css/kolento.css" />
+		<style>
+			html,
+			body {background-color: #efeff4;}
+		</style>
+	</head>
+
+	<body>
+		<div id="tv">
+			<div class="mui-slider">
+			    <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+			        <a class="mui-control-item" href="#item1">热门</a>
+			        <a class="mui-control-item" href="#item2">美剧</a>
+			        <a class="mui-control-item" href="#item3">英剧</a>
+			        <a class="mui-control-item" href="#item4">韩剧</a>
+			        <a class="mui-control-item" href="#item5">日剧</a>
+			        <a class="mui-control-item" href="#item6">国剧</a>
+			    </div>
+			    <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-2"></div>
+			    <div class="mui-slider-group" id="indexscroll">
+			        <div id="item1" class="mslide mui-slider-item mui-control-content mui-active">
+			        	<div class="section">
+				        	<h2 class="vtitle b">最新推送</h2>
+							<mshow :movietype="hotnew"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">人气推荐</h2>
+							<mshow :movietype="hothot"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">口碑榜单</h2>
+							<mshow :movietype="hotnice"></mshow>
+						</div>
+			        </div>
+			        <div id="item2" class="mslide mui-slider-item mui-control-content">
+			        	<div class="section">
+				        	<h2 class="vtitle b">最新美剧</h2>
+							<mshow :movietype="americanew"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">最热美剧</h2>
+							<mshow :movietype="americahot"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">美剧榜单</h2>
+							<mshow :movietype="americanice"></mshow>
+						</div>
+			        </div>
+			        <div id="item3" class="mslide mui-slider-item mui-control-content">
+			        	<div class="section">
+				        	<h2 class="vtitle b">最新英剧</h2>
+							<mshow :movietype="englandnew"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">最热英剧</h2>
+							<mshow :movietype="englandhot"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">英剧榜单</h2>
+							<mshow :movietype="englandnice"></mshow>
+						</div>
+			        </div>
+			        <div id="item4" class="mslide mui-slider-item mui-control-content">
+			        	<div class="section">
+				        	<h2 class="vtitle b">最新韩剧</h2>
+							<mshow :movietype="koreanew"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">最热韩剧</h2>
+							<mshow :movietype="koreahot"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">韩剧榜单</h2>
+							<mshow :movietype="koreanice"></mshow>
+						</div>
+			        </div>
+			        <div id="item5" class="mslide mui-slider-item mui-control-content">
+			        	<div class="section">
+				        	<h2 class="vtitle b">最新日剧</h2>
+							<mshow :movietype="japannew"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">最热日剧</h2>
+							<mshow :movietype="japanhot"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">日剧榜单</h2>
+							<mshow :movietype="japannice"></mshow>
+						</div>
+			        </div>
+			        <div id="item6" class="mslide mui-slider-item mui-control-content">
+			        	<div class="section">
+				        	<h2 class="vtitle b">最新国剧</h2>
+							<mshow :movietype="chinanew"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">最热国剧</h2>
+							<mshow :movietype="chinahot"></mshow>
+						</div>
+			        	<div class="section" v-if="chinanice"> 
+				        	<h2 class="vtitle b">国剧榜单</h2>
+							<mshow :movietype="chinanice"></mshow>
+						</div>
+			        </div>
+			    </div>
+			</div>
+		</div>
+		<script src="../js/util.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    	<script src="../js/kolento.js"></script>
+    	<script src="../js/movieshow.js"></script>
+    	<script>
+    		(function() {
+    			mui.init();
+    		})();
+			var tv = new Vue({
+				el: '#tv',
+				data(){
+					return{
+		                hotnew:'',
+		                hothot:'',
+		                hotnice:'',
+		                americanew:'',
+		                americahot:'',
+		                americanice:'',
+		                englandnew:'',
+		                englandhot:'',
+		                englandnice:'',
+		                koreanew:'',
+		                koreahot:'',
+		                koreanice:'',
+		                japannew:'',
+		                japanhot:'',
+		                japannice:'',
+		                chinanew:'',
+		                chinahot:'',
+		                chinanice:''
+					}
+				},
+				created(){
+		        	let myDate = new Date();
+		            let day = myDate.getDate();
+		            let firstday = localStorage.getItem('today')
+		            
+		            if(firstday!=day){
+		            	localStorage.setItem('today',day)
+		                this.hotnewapi();
+		                this.hothotapi();
+		                this.hotniceapi();
+		            }else{
+		                let hotnew = localStorage.getItem('hotnew');
+		                if(hotnew){
+		                    let hotnewJson = JSON.parse(hotnew)
+		                    console.log(hotnewJson)
+		                    this.hotnew = hotnewJson
+		                }else{
+		                    this.hotnewapi();
+		                }
+		
+		                let hothot = localStorage.getItem('hothot');
+		                if(hothot){
+		                    let hothotJson = JSON.parse(hothot)
+		                    console.log(hothotJson)
+		                    this.hothot = hothotJson
+		                }else{
+		                    this.hothotapi();
+		                }
+		
+		                let hotnice = localStorage.getItem('hotnice');
+		                if(hotnice){
+		                    let hotniceJson = JSON.parse(hotnice)
+		                    console.log(hotniceJson)
+		                    this.hotnice = hotniceJson
+		                    this.load=false
+		                }else{
+		                    this.hotniceapi();
+		                }
+		            }
+			
+				},
+				mounted(){
+					let myDate = new Date();
+		            let day = myDate.getDate();
+		            let firstday = localStorage.getItem('today')
+					document.querySelector('.mui-slider').addEventListener('slide', (event)=> {
+						if(event.detail.slideNumber===1){
+				            if(firstday!=day){
+				            	localStorage.setItem('today',day)
+				                this.americanewapi();
+				                this.americahotapi();
+				                this.americaniceapi();
+				            }else{
+				                let americanew = localStorage.getItem('americanew');
+				                if(americanew){
+				                    let americanewJson = JSON.parse(americanew)
+				                    console.log(americanewJson)
+				                    this.americanew = americanewJson
+				                }else{
+				                    this.americanewapi();
+				                }
+				
+				                let americahot = localStorage.getItem('americahot');
+				                if(americahot){
+		                            let americahotJson = JSON.parse(americahot)
+		                            console.log(americahotJson)
+		                            this.americahot = americahotJson
+				                }else{
+				                    this.americahotapi();
+				                }
+				
+				                let americanice = localStorage.getItem('americanice');
+				                if(americanice){
+		                            let americaniceJson = JSON.parse(americanice)
+		                            console.log(americaniceJson)
+		                            this.americanice = americaniceJson
+				                }else{
+				                    this.americaniceapi();
+				                }
+				            }
+				
+					  	}else if(event.detail.slideNumber===2){
+		                    if(firstday!=day){
+		                        this.englandnewapi();
+		                        this.englandhotapi();
+		                        this.englandniceapi();
+		                    }else{
+		                        let englandnew = localStorage.getItem('englandnew');
+		                        if(englandnew){
+		                            let englandnewJson = JSON.parse(englandnew)
+		                            console.log(englandnewJson)
+		                            this.englandnew = englandnewJson
+		                        }else{
+		                            this.englandnewapi();
+		                        }
+		
+		                        let englandhot = localStorage.getItem('englandhot');
+		                        if(englandhot){
+		                            let englandhotJson = JSON.parse(englandhot)
+		                            console.log(englandhotJson)
+		                            this.englandhot = englandhotJson
+		                        }else{
+		                            this.englandhotapi();
+		                        }
+		
+		                        let englandnice = localStorage.getItem('englandnice');
+		                        if(englandnice){
+		                            let englandniceJson = JSON.parse(englandnice)
+		                            console.log(englandniceJson)
+		                            this.englandnice = englandniceJson
+		                            this.load=false
+		                        }else{
+		                            this.englandniceapi();
+		                        }
+		                    }
+						}else if(event.detail.slideNumber===3){
+		                    if(firstday!=day){
+		                        this.koreanewapi();
+		                        this.koreahotapi();
+		                        this.koreaniceapi();
+		                    }else{
+		                        let koreanew = localStorage.getItem('koreanew');
+		                        if(koreanew){
+		                            let koreanewJson = JSON.parse(koreanew)
+		                            console.log(koreanewJson)
+		                            this.koreanew = koreanewJson
+		                        }else{
+		                            this.koreanewapi();
+		                        }
+		
+		                        let koreahot = localStorage.getItem('koreahot');
+		                        if(koreahot){
+		                            let koreahotJson = JSON.parse(koreahot)
+		                            console.log(koreahotJson)
+		                            this.koreahot = koreahotJson
+		                        }else{
+		                            this.koreahotapi();
+		                        }
+		
+		                        let koreanice = localStorage.getItem('koreanice');
+		                        if(koreanice){
+		                            let koreaniceJson = JSON.parse(koreanice)
+		                            console.log(koreaniceJson)
+		                            this.koreanice = koreaniceJson
+		                            this.load=false
+		                        }else{
+		                            this.koreaniceapi();
+		                        }
+		                    }
+						}else if(event.detail.slideNumber===4){
+		                    if(firstday!=day){
+		                        this.japannewapi();
+		                        this.japanhotapi();
+		                        this.japanniceapi();
+		                    }else{
+		                        let japannew = localStorage.getItem('japannew');
+		                        if(japannew){
+		                            let japannewJson = JSON.parse(japannew)
+		                            console.log(japannewJson)
+		                            this.japannew = japannewJson
+		                        }else{
+		                            this.japannewapi();
+		                        }
+		
+		                        let japanhot = localStorage.getItem('japanhot');
+		                        if(japanhot){
+		                            let japanhotJson = JSON.parse(japanhot)
+		                            console.log(japanhotJson)
+		                            this.japanhot = japanhotJson
+		                        }else{
+		                            this.japanhotapi();
+		                        }
+		
+		                        let japannice = localStorage.getItem('japannice');
+		                        if(japannice){
+		                            let japanniceJson = JSON.parse(japannice)
+		                            console.log(japanniceJson)
+		                            this.japannice = japanniceJson
+		                            this.load=false
+		                        }else{
+		                            this.japanniceapi();
+		                        }
+		                    }
+						}else if(event.detail.slideNumber===5){
+		                    if(firstday!=day){
+		                        this.chinanewapi();
+		                        this.chinahotapi();
+		                        this.chinaniceapi();
+		                    }else{
+		                        let chinanew = localStorage.getItem('chinanew');
+		                        if(chinanew){
+		                            let chinanewJson = JSON.parse(chinanew)
+		                            console.log(chinanewJson)
+		                            this.chinanew = chinanewJson
+		                        }else{
+		                            this.chinanewapi();
+		                        }
+		
+		                        let chinahot = localStorage.getItem('chinahot');
+		                        if(chinahot){
+		                            let chinahotJson = JSON.parse(chinahot)
+		                            console.log(chinahotJson)
+		                            this.chinahot = chinahotJson
+		                        }else{
+		                            this.chinahotapi();
+		                        }
+		
+		                        let chinanice = localStorage.getItem('chinanice');
+		                        if(chinanice){
+		                            let chinaniceJson = JSON.parse(chinanice)
+		                            console.log(chinaniceJson)
+		                            this.chinanice = chinaniceJson
+		                            this.load=false
+		                        }else{
+		                            this.chinaniceapi();
+		                        }
+		                    }
+						}
+						
+					
+					});
+				
+				},
+				methods:{
+		            hotnewapi(){
+		                axios.get(`http://xkolento.cn/hottv/new`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.hotnew=res.data.subjects;
+		                    let hotnewstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('hotnew', hotnewstr);
+		                })
+		            },
+		            hothotapi(){
+		                axios.get(`http://xkolento.cn/hottv/hot`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.hothot=res.data.subjects;
+		                    let hothotstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('hothot', hothotstr);
+		                })
+		            },
+		            hotniceapi(){
+		                axios.get(`http://xkolento.cn/hottv/nice`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.hotnice=res.data.subjects;
+		                    let hotnicestr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('hotnice', hotnicestr);
+		                    this.load=false
+		                })
+		            },
+				    americanewapi(){
+		                axios.get(`https://xkolento.cn/america/new`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.americanew=res.data.subjects;
+		                    let americanewstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('americanew', americanewstr);
+		                })
+		            },
+		            americahotapi(){
+		                axios.get(`https://xkolento.cn/america/hot`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.americahot=res.data.subjects;
+		                    let americahotstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('americahot', americahotstr);
+		                })
+		            },
+		            americaniceapi(){
+		                axios.get(`https://xkolento.cn/america/nice`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.americanice=res.data.subjects;
+		                    let americanicestr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('americanice', americanicestr);
+		                    this.load=false
+		                })
+		            },
+		            englandnewapi(){
+		                axios.get(`https://xkolento.cn/england/new`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.englandnew=res.data.subjects;
+		                    let englandnewstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('englandnew', englandnewstr);
+		                })
+		            },
+		            englandhotapi(){
+		                axios.get(`https://xkolento.cn/england/hot`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.englandhot=res.data.subjects;
+		                    let englandhotstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('englandhot', englandhotstr);
+		                })
+		            },
+		            englandniceapi(){
+		                axios.get(`https://xkolento.cn/england/nice`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.englandnice=res.data.subjects;
+		                    let englandnicestr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('englandnice', englandnicestr);
+		                    this.load=false
+		                })
+		            },
+		            koreanewapi(){
+		                axios.get(`https://xkolento.cn/korea/new`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.koreanew=res.data.subjects;
+		                    let koreanewstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('koreanew', koreanewstr);
+		                })
+		            },
+		            koreahotapi(){
+		                axios.get(`https://xkolento.cn/korea/hot`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.koreahot=res.data.subjects;
+		                    let koreahotstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('koreahot', koreahotstr);
+		                })
+		            },
+		            koreaniceapi(){
+		                axios.get(`https://xkolento.cn/korea/nice`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.koreanice=res.data.subjects;
+		                    let koreanicestr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('koreanice', koreanicestr);
+		                    this.load=false
+		                })
+		            },
+		            japannewapi(){
+		                axios.get(`https://xkolento.cn/japan/new`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.japannew=res.data.subjects;
+		                    let japannewstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('japannew', japannewstr);
+		                })
+		            },
+		            japanhotapi(){
+		                axios.get(`https://xkolento.cn/japan/hot`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.japanhot=res.data.subjects;
+		                    let japanhotstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('japanhot', japanhotstr);
+		                })
+		            },
+		            japanniceapi(){
+		                axios.get(`https://xkolento.cn/japan/nice`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.japannice=res.data.subjects;
+		                    let japannicestr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('japannice', japannicestr);
+		                    this.load=false
+		                })
+		            },
+		            chinanewapi(){
+		                axios.get(`https://xkolento.cn/china/new`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.chinanew=res.data.subjects;
+		                    let chinanewstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('chinanew', chinanewstr);
+		                })
+		            },
+		            chinahotapi(){
+		                axios.get(`https://xkolento.cn/china/hot`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.chinahot=res.data.subjects;
+		                    let chinahotstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('chinahot', chinahotstr);
+		                })
+		            },
+		            chinaniceapi(){
+		                axios.get(`https://xkolento.cn/japan/nice`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.japannice=res.data.subjects;
+		                    let japannicestr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('japannice', japannicestr);
+		                    this.load=false
+		                })
+		            }
+				}
+				
+			})
+    	</script>
+	</body>
+</html>

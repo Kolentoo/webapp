@@ -1,8 +1,8 @@
 var util = {
 	options: {
 		ACTIVE_COLOR: "#fff",
-		NORMAL_COLOR: "#b01112",
-		subpages: ["html/tab-webview-subpage-chat.html", "html/tab-webview-subpage-contact.html"]
+		NORMAL_COLOR: "#97352a",
+		subpages: ["html/tv.html", "html/anime.html","html/book.html"]
 	},
 	/**
 	 *  简单封装了绘制原生view控件的方法

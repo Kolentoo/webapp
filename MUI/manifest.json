@@ -119,7 +119,7 @@
 						"left": "0",
 						"height": "50px",
 						"width": "100%",
-						"backgroundColor": "#f04d4e"
+						"backgroundColor": "#d74d40"
 					},
 					"tags": [
 						{
@@ -212,7 +212,7 @@
 						},{
 							"tag": "font",
 							"id": "newwindowIcon",
-							"text": "\ue65a",
+							"text": "\ue60f",
 							"position": {
 								"top": "6px",
 								"left": "75%",
@@ -227,7 +227,7 @@
 						}, {
 							"tag": "font",
 							"id": "newwindowText",
-							"text": "发现",
+							"text": "图书",
 							"position": {
 								"top": "25px",
 								"left": "75%",

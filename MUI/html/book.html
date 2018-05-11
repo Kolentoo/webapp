@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>TV</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../js/mui.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+	    <link rel="stylesheet" type="text/css" href="../css/core.css"/>
+	    <link rel="stylesheet" href="../css/kolento.css" />
+		<style>
+			html,
+			body {background-color: #efeff4;}
+		</style>
+	</head>
+
+	<body>
+		<div id="book">
+			<div class="mui-slider" id="mslider">
+			    <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+			        <a class="mui-control-item" href="#item1">文化</a>
+			        <a class="mui-control-item" href="#item2">生活</a>
+			        <a class="mui-control-item" href="#item3">经管</a>
+			        <a class="mui-control-item" href="#item4">科技</a>
+			    </div>
+			    <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-3"></div>
+			    <div class="mui-slider-group" id="indexscroll">
+			        <div id="item1" class="mslide mui-slider-item mui-control-content mui-active">
+			        	<div class="section">
+				        	<h2 class="vtitle b">历史</h2>
+							<mshow :movietype="bookhistory"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">哲学</h2>
+							<mshow :movietype="bookphilosophy"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">文学</h2>
+							<mshow :movietype="bookliterature"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">小说</h2>
+							<mshow :movietype="booknovel"></mshow>
+						</div>
+						
+			        </div>
+			        <div id="item2" class="mslide mui-slider-item mui-control-content">
+			        	<div class="section">
+				        	<h2 class="vtitle b">日常</h2>
+							<mshow :movietype="booklife"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">爱情</h2>
+							<mshow :movietype="booklove"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">旅行</h2>
+							<mshow :movietype="booktravel"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">成长</h2>
+							<mshow :movietype="bookgrowup"></mshow>
+						</div>
+			        </div>
+			        <div id="item3" class="mslide mui-slider-item mui-control-content">
+			        	<div class="section">
+				        	<h2 class="vtitle b">经济</h2>
+							<mshow :movietype="bookeconomics"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">管理</h2>
+							<mshow :movietype="bookmanage"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">商业</h2>
+							<mshow :movietype="bookbusiness"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">金融</h2>
+							<mshow :movietype="bookfinance"></mshow>
+						</div>
+			        </div>
+			        <div id="item4" class="mslide mui-slider-item mui-control-content">
+			        	<div class="section">
+				        	<h2 class="vtitle b">科普</h2>
+							<mshow :movietype="bookepolular"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">互联网</h2>
+							<mshow :movietype="bookInternet"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">编程</h2>
+							<mshow :movietype="bookprogramming"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">科学</h2>
+							<mshow :movietype="bookscience"></mshow>
+						</div>
+			        </div>
+			    </div>
+			</div>
+	    
+
+		</div>
+		<script src="../js/util.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    	<script src="../js/kolento.js"></script>
+    	<script src="../js/movieshow.js"></script>
+    	<script>
+    		(function() {
+    			mui.init();
+    		})();
+			var tv = new Vue({
+				el: '#book',
+				data(){
+					return{
+		                bookhistory:'',
+		                bookphilosophy:'',
+		                bookliterature:'',
+		                booknovel:'',
+		                booklife:'',
+		                booklove:'',
+		                booktravel:'',
+		                bookgrowup:'',
+		                bookeconomics:'',
+		                bookmanage:'',
+		                bookbusiness:'',
+		                bookfinance:'',
+		                bookepolular:'',
+		                bookInternet:'',
+		                bookprogramming:'',
+		                bookscience:''
+					}
+				},
+				created(){
+		        	let myDate = new Date();
+		            let day = myDate.getDate();
+		            let firstday = localStorage.getItem('today')
+		            
+                    if(firstday!=day){
+						this.bookhistoryapi();
+						this.bookphilosophyapi();
+						this.bookliteratureapi();
+						this.booknovelapi();
+						this.booklifeapi();
+						this.bookloveapi();
+						this.booktravelapi();
+						this.bookgrowupapi();
+						setTimeout(()=>{
+							this.bookeconomicsapi();
+							this.bookmanageapi();
+							this.bookbusinessapi();
+							this.bookfinanceapi();
+						},800)
+						setTimeout(()=>{
+							this.bookepolularapi();
+							this.bookInternetapi();
+							this.bookprogrammingapi();
+							this.bookscienceapi();
+						},1500)
+                    }else{
+		                let bookhistory = localStorage.getItem('bookhistory');
+		                if(bookhistory){
+		                    let bookhistoryJson = JSON.parse(bookhistory)
+		                    console.log(bookhistoryJson)
+		                    this.bookhistory = bookhistoryJson
+		                }else{
+		                    this.bookhistoryapi();
+		                }
+		                
+		                let bookphilosophy = localStorage.getItem('bookphilosophy');
+		                if(bookphilosophy){
+		                    let bookphilosophyJson = JSON.parse(bookphilosophy)
+		                    console.log(bookphilosophyJson)
+		                    this.bookphilosophy = bookphilosophyJson
+		                }else{
+		                    this.bookphilosophyapi();
+		                }
+		                
+		                let bookliterature = localStorage.getItem('bookliterature');
+		                if(bookliterature){
+		                    let bookliteratureJson = JSON.parse(bookliterature)
+		                    console.log(bookliteratureJson)
+		                    this.bookliterature = bookliteratureJson
+		                }else{
+		                    this.bookliteratureapi();
+		                }
+		                
+		                let booknovel = localStorage.getItem('booknovel');
+		                if(booknovel){
+		                    let booknovelJson = JSON.parse(booknovel)
+		                    console.log(booknovelJson)
+		                    this.booknovel = booknovelJson
+		                }else{
+		                    this.booknovelapi();
+		                }
+		                
+		                let booklife = localStorage.getItem('booklife');
+		                if(booklife){
+		                    let booklifeJson = JSON.parse(booklife)
+		                    console.log(booklifeJson)
+		                    this.booklife = booklifeJson
+		                }else{
+		                    this.booklifeapi();
+		                }
+		                
+		                let booklove = localStorage.getItem('booklove');
+		                if(booklove){
+		                    let bookloveJson = JSON.parse(booklove)
+		                    console.log(bookloveJson)
+		                    this.booklove = bookloveJson
+		                }else{
+		                    this.bookloveapi();
+		                }
+		                
+		                let booktravel = localStorage.getItem('booktravel');
+		                if(booktravel){
+		                    let booktravelJson = JSON.parse(booktravel)
+		                    console.log(booktravelJson)
+		                    this.booktravel = booktravelJson
+		                }else{
+		                    this.booktravelapi();
+		                }
+		                
+	                	let bookgrowup = localStorage.getItem('bookgrowup');
+		                if(bookgrowup){
+		                    let bookgrowupJson = JSON.parse(bookgrowup)
+		                    console.log(bookgrowupJson)
+		                    this.bookgrowup = bookgrowupJson
+		                }else{
+		                    this.bookgrowupapi();
+		                }
+		                
+		                setTimeout(()=>{
+			                let bookeconomics = localStorage.getItem('bookeconomics');
+			                if(bookeconomics){
+			                    let bookeconomicsJson = JSON.parse(bookeconomics)
+			                    console.log(bookeconomicsJson)
+			                    this.bookeconomics = bookeconomicsJson
+			                }else{
+			                    this.bookeconomicsapi();
+			                }
+			                
+			                let bookmanage = localStorage.getItem('bookmanage');
+			                if(bookmanage){
+			                    let bookmanageJson = JSON.parse(bookmanage)
+			                    console.log(bookmanageJson)
+			                    this.bookmanage = bookmanageJson
+			                }else{
+			                    this.bookmanageapi();
+			                }
+			                
+			                let bookbusiness = localStorage.getItem('bookbusiness');
+			                if(bookbusiness){
+			                    let bookbusinessJson = JSON.parse(bookbusiness)
+			                    console.log(bookbusinessJson)
+			                    this.bookbusiness = bookbusinessJson
+			                }else{
+			                    this.bookbusinessapi();
+			                }
+			                
+		                	let bookfinance = localStorage.getItem('bookfinance');
+			                if(bookfinance){
+			                    let bookfinanceJson = JSON.parse(bookfinance)
+			                    console.log(bookfinanceJson)
+			                    this.bookfinance = bookfinanceJson
+			                }else{
+			                    this.bookfinanceapi();
+			                }
+		                },800)
+		                
+		                setTimeout(()=>{
+			                let bookepolular = localStorage.getItem('bookepolular');
+			                if(bookepolular){
+			                    let bookepolularJson = JSON.parse(bookepolular)
+			                    console.log(bookepolularJson)
+			                    this.bookepolular = bookepolularJson
+			                }else{
+			                    this.bookepolularapi();
+			                }
+			                
+			                let bookInternet = localStorage.getItem('bookInternet');
+			                if(bookInternet){
+			                    let bookInternetJson = JSON.parse(bookInternet)
+			                    console.log(bookInternetJson)
+			                    this.bookInternet = bookInternetJson
+			                }else{
+			                    this.bookInternetapi();
+			                }
+			                
+			                let bookprogramming = localStorage.getItem('bookprogramming');
+			                if(bookprogramming){
+			                    let bookprogrammingJson = JSON.parse(bookprogramming)
+			                    console.log(bookprogrammingJson)
+			                    this.bookprogramming = bookprogrammingJson
+			                }else{
+			                    this.bookprogrammingapi();
+			                }
+			                
+		                	let bookscience = localStorage.getItem('bookscience');
+			                if(bookscience){
+			                    let bookscienceJson = JSON.parse(bookscience)
+			                    console.log(bookscienceJson)
+			                    this.bookscience = bookscienceJson
+			                }else{
+			                    this.bookscienceapi();
+			                }
+		                },1500)
+                    }
+			
+				},
+				mounted(){
+
+				},
+				methods:{
+            		bookhistoryapi(){
+			            axios.get(`https://xkolento.cn/booksearch/历史`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookhistory=res.data.books;
+		                    let bookhistorystr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookhistory', bookhistorystr);
+		                })
+		            },
+            		bookphilosophyapi(){
+			            axios.get(`https://xkolento.cn/booksearch/哲学`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookphilosophy=res.data.books;
+		                    let bookphilosophystr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookphilosophy', bookphilosophystr);
+		                })
+		            },
+        			bookliteratureapi(){
+			            axios.get(`https://xkolento.cn/booksearch/文学`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookliterature=res.data.books;
+		                    let bookliteraturestr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookliterature', bookliteraturestr);
+		                })
+		            },
+        			booknovelapi(){
+			            axios.get(`https://xkolento.cn/booksearch/小说`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.booknovel=res.data.books;
+		                    let booklnovelstr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('booknovel', booklnovelstr);
+		                })
+		            },
+        			booklifeapi(){
+			            axios.get(`https://xkolento.cn/booksearch/生活`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.booklife=res.data.books;
+		                    let booklifestr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('booklife', booklifestr);
+		                })
+		            },
+        			bookloveapi(){
+			            axios.get(`https://xkolento.cn/booksearch/爱情`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.booklove=res.data.books;
+		                    let booklovestr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('booklove', booklovestr);
+		                })
+		            },
+        			booktravelapi(){
+			            axios.get(`https://xkolento.cn/booksearch/旅行`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.booktravel=res.data.books;
+		                    let booktravelstr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('booktravel', booktravelstr);
+		                })
+		            },
+        			bookgrowupapi(){
+			            axios.get(`https://xkolento.cn/booksearch/成长`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookgrowup=res.data.books;
+		                    let bookgrowupstr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookgrowup', bookgrowupstr);
+		                })
+		            },
+        			bookeconomicsapi(){
+			            axios.get(`https://xkolento.cn/booksearch/经济`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookeconomics=res.data.books;
+		                    let bookeconomicsstr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookeconomics', bookeconomicsstr);
+		                })
+		            },
+        			bookmanageapi(){
+			            axios.get(`https://xkolento.cn/booksearch/管理`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookmanage=res.data.books;
+		                    let bookmanagestr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookmanage', bookmanagestr);
+		                })
+		            },
+        			bookbusinessapi(){
+			            axios.get(`https://xkolento.cn/booksearch/商业`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookbusiness=res.data.books;
+		                    let bookbusinessstr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookbusiness', bookbusinessstr);
+		                })
+		            },
+        			bookfinanceapi(){
+			            axios.get(`https://xkolento.cn/booksearch/金融`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookfinance=res.data.books;
+		                    let bookfinancestr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookfinance', bookfinancestr);
+		                })
+		            },
+    				bookepolularapi(){
+			            axios.get(`https://xkolento.cn/booksearch/科普`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookepolular=res.data.books;
+		                    let bookepolularstr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookepolular', bookepolularstr);
+		                })
+		            },
+        			bookInternetapi(){
+			            axios.get(`https://xkolento.cn/booksearch/互联网`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookInternet=res.data.books;
+		                    let bookInternetstr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookInternet', bookInternetstr);
+		                })
+		            },
+        			bookprogrammingapi(){
+			            axios.get(`https://xkolento.cn/booksearch/编程`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookprogramming=res.data.books;
+		                    let bookprogrammingstr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookprogramming', bookprogrammingstr);
+		                })
+		            },
+        			bookscienceapi(){
+			            axios.get(`https://xkolento.cn/booksearch/科学`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.bookscience=res.data.books;
+		                    let booksciencestr = JSON.stringify(res.data.books)
+		                    localStorage.setItem('bookscience', booksciencestr);
+		                })
+		            }
+				}
+				
+			})
+    	</script>
+	</body>
+</html>

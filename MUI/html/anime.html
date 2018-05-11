@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>TV</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../js/mui.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+	    <link rel="stylesheet" type="text/css" href="../css/core.css"/>
+	    <link rel="stylesheet" href="../css/kolento.css" />
+		<style>
+			html,
+			body {background-color: #efeff4;}
+		</style>
+	</head>
+
+	<body>
+		<div id="anime">
+			<div class="mui-slider" id="mslider">
+			    <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+			        <a class="mui-control-item" href="#item1">动漫</a>
+			        <a class="mui-control-item" href="#item2">综艺</a>
+			    </div>
+			    <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+			    <div class="mui-slider-group" id="indexscroll">
+			        <div id="item1" class="mslide mui-slider-item mui-control-content mui-active">
+			        	<div class="section">
+				        	<h2 class="vtitle b">最新动漫</h2>
+							<mshow :movietype="animenew"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">人气动漫</h2>
+							<mshow :movietype="animehot"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">动漫榜单</h2>
+							<mshow :movietype="animenice"></mshow>
+						</div>
+			        </div>
+			        <div id="item2" class="mslide mui-slider-item mui-control-content">
+			        	<div class="section">
+				        	<h2 class="vtitle b">最新综艺</h2>
+							<mshow :movietype="varietynew"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">最热综艺</h2>
+							<mshow :movietype="varietyhot"></mshow>
+						</div>
+			        	<div class="section">
+				        	<h2 class="vtitle b">综艺榜单</h2>
+							<mshow :movietype="varietynice"></mshow>
+						</div>
+			        </div>
+			    </div>
+			</div>
+	    
+
+		</div>
+		<script src="../js/util.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    	<script src="../js/kolento.js"></script>
+    	<script src="../js/movieshow.js"></script>
+    	<script>
+    		(function() {
+    			mui.init();
+    		})();
+			var tv = new Vue({
+				el: '#anime',
+				data(){
+					return{
+		                animenew:'',
+		                animehot:'',
+		                animenice:'',
+		                varietynew:'',
+		                varietyhot:'',
+		                varietynice:''
+					}
+				},
+				created(){
+		        	let myDate = new Date();
+		            let day = myDate.getDate();
+		            let firstday = localStorage.getItem('today')
+		            
+                    if(firstday!=day){
+    	                this.animenewapi();
+		                this.animehotapi();
+		                this.animeniceapi();
+                        this.varietynewapi();
+                        this.varietyhotapi();
+                        this.varietyniceapi();
+                    }else{
+		                let animenew = localStorage.getItem('animenew');
+		                if(animenew){
+		                    let animenewJson = JSON.parse(animenew)
+		                    console.log(animenewJson)
+		                    this.animenew = animenewJson
+		                }else{
+		                    this.animenewapi();
+		                }
+		
+		                let animehot = localStorage.getItem('animehot');
+		                if(animehot){
+		                    let animehotJson = JSON.parse(animehot)
+		                    console.log(animehotJson)
+		                    this.animehot = animehotJson
+		                }else{
+		                    this.animehotapi();
+		                }
+		
+		                let animenice = localStorage.getItem('animenice');
+		                if(animenice){
+		                    let animeniceJson = JSON.parse(animenice)
+		                    console.log(animeniceJson)
+		                    this.animenice = animeniceJson
+		                    this.load=false
+		                }else{
+		                    this.animeniceapi();
+		                }
+		                
+                        let varietynew = localStorage.getItem('varietynew');
+                        if(varietynew){
+                            let varietynewJson = JSON.parse(varietynew)
+                            console.log(varietynewJson)
+                            this.varietynew = varietynewJson
+                        }else{
+                            this.varietynewapi();
+                        }
+
+                        let varietyhot = localStorage.getItem('varietyhot');
+                        if(varietyhot){
+                            let varietyhotJson = JSON.parse(varietyhot)
+                            console.log(varietyhotJson)
+                            this.varietyhot = varietyhotJson
+                        }else{
+                            this.varietyhotapi();
+                        }
+
+                        let varietynice = localStorage.getItem('varietynice');
+                        if(varietynice){
+                            let varietyniceJson = JSON.parse(varietynice)
+                            console.log(varietyniceJson)
+                            this.varietynice = varietyniceJson
+                            this.load=false
+                        }else{
+                            this.varietyniceapi();
+                        }
+                    }
+			
+				},
+				mounted(){
+
+				},
+				methods:{
+		            animenewapi(){
+		                axios.get(`https://xkolento.cn/anime/new`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.animenew=res.data.subjects;
+		                    let animenewstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('animenew', animenewstr);
+		                })
+		            },
+		            animehotapi(){
+		                axios.get(`https://xkolento.cn/anime/hot`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.animehot=res.data.subjects;
+		                    let animehotstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('animehot', animehotstr);
+		                })
+		            },
+		            animeniceapi(){
+		                axios.get(`https://xkolento.cn/anime/nice`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.animenice=res.data.subjects;
+		                    let animenicestr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('animenice', animenicestr);
+		                    this.load=false
+		                })
+		            },
+		            varietynewapi(){
+		                axios.get(`https://xkolento.cn/variety/new`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.varietynew=res.data.subjects;
+		                    let varietynewstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('varietynew', varietynewstr);
+		                })
+		            },
+		            varietyhotapi(){
+		                axios.get(`https://xkolento.cn/variety/hot`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.varietyhot=res.data.subjects;
+		                    let varietyhotstr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('varietyhot', varietyhotstr);
+		                })
+		            },
+		            varietyniceapi(){
+		                axios.get(`https://xkolento.cn/variety/nice`,{
+		                    params:{}
+		                }).then(res=>{
+		                    this.varietynice=res.data.subjects;
+		                    let varietynicestr = JSON.stringify(res.data.subjects)
+		                    localStorage.setItem('varietynice', varietynicestr);
+		                })
+		            }
+				}
+				
+			})
+    	</script>
+	</body>
+</html>

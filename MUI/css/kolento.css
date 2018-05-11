@@ -23,8 +23,9 @@ letter-spacing: 4px}
 #index .p2 {color:#fff;font-size: 18px;margin-top: 5px;}
 #index .menubtn {background: url('../images/menu.png') no-repeat center center;width: 22px;height: 22px;position: absolute;top: 20px;left: 20px;
 z-index:50;background-size: 100%;}
-#index .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar {background-color:#b01112;}
-#index .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {color:#b01112;}
+#sliderProgressBar {background-color:#d74d40;}}
+#index .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar {background-color:#d74d40;}
+#index .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {color:#d74d40;}
 
 /*影片滚动板块*/
 #indexscroll .section {margin-left: 10px;}
@@ -124,3 +125,15 @@ border-radius:8px;}
 
 /*tv*/
 #tv .mslide .vtitle{font-size: 15px;}
+#tv .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar {background-color:#d74d40;}
+#tv .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {color:#d74d40;}
+
+/*anime*/
+#anime .mslide .vtitle{font-size: 15px;}
+#anime .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar {background-color:#d74d40;}
+#anime .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {color:#d74d40;}
+
+/*anime*/
+#book .mslide .vtitle{font-size: 15px;}
+#book .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-progress-bar {background-color:#d74d40;}
+#book .mui-segmented-control.mui-segmented-control-inverted .mui-control-item.mui-active {color:#d74d40;}
