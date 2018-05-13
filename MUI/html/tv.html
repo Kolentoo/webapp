@@ -13,7 +13,7 @@
 	    <link rel="stylesheet" href="../css/kolento.css" />
 		<style>
 			html,
-			body {background-color: #efeff4;}
+			body {background-color: #fff;}
 		</style>
 	</head>
 
@@ -21,7 +21,7 @@
 		<div id="tv">
 			<div class="mui-slider">
 			    <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-			        <a class="mui-control-item" href="#item1">热门</a>
+			        <a class="mui-control-item mui-active" href="#item1">热门</a>
 			        <a class="mui-control-item" href="#item2">美剧</a>
 			        <a class="mui-control-item" href="#item3">英剧</a>
 			        <a class="mui-control-item" href="#item4">韩剧</a>
@@ -124,7 +124,9 @@
     	<script src="../js/movieshow.js"></script>
     	<script>
     		(function() {
-    			mui.init();
+    			mui.init({
+    				statusBarBackground:"#fff"
+    			});
     		})();
 			var tv = new Vue({
 				el: '#tv',

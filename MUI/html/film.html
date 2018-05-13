@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>TV</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../js/mui.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+	    <link rel="stylesheet" type="text/css" href="../css/core.css"/>
+	    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/css/swiper.min.css">
+	    <link rel="stylesheet" href="../css/kolento.css" />
+	</head>
+
+	<body>
+		<div class="ranking" id="ranking">
+	        <div class="commonbox">
+	            <div class="top">
+
+	            </div>
+	        </div>
+			<div class="swiper-container">
+			    <div class="swiper-wrapper">
+			        <div class="swiper-slide" ref="slide" v-for="(item,idx) in subjectbox" :key="idx">
+            	<div class="rankbox">
+                    <div class="slidestart" v-if="idx===0">
+                        <img class="rankingbj" src="../images/ranking.gif" alt="">
+                        <img class="rankingtitle1" src="../images/rankingtitle1.png" alt="">
+                        <img class="rankinglight" src="../images/rankinglight.png" alt="">
+                        <img class="downpic" src="../images/down.png" alt="">
+                    </div>
+                    <div class="slidecon" v-if="idx>0">
+                        <img class="imgbj" 							:src="item.payload.mobile_background_img?'https://images.weserv.nl/?url='+item.payload.mobile_background_img.substring(7):'https://images.weserv.nl/?url='+item.subjects[0].cover.substring(7)" alt="">
+                        <div class="titlebox" v-if="item.kind_cn==='Top 10'">
+                            <p class="p1">{{item.payload.title}}</p>
+                            <p class="p2"><em>TOP1</em>{{item.subject.title}}</p>
+                            <div class="scorebox">
+                                <div v-if="item.subject.rating >= 9">
+                                    <div class="star10"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 8 && item.subject.rating <9">
+                                    <div class="star9"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 7 && item.subject.rating <8">
+                                    <div class="star8"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 6 && item.subject.rating <7">
+                                    <div class="star7"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 5 && item.subject.rating <6">
+                                    <div class="star6"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 4 && item.subject.rating <5">
+                                    <div class="star5"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 3 && item.subject.rating <4">
+                                    <div class="star4"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 2 && item.subject.rating <3">
+                                    <div class="star3"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 1 && item.subject.rating <0">
+                                    <div class="star2"></div>
+                                </div>
+                                <div v-else>
+                                    <div class="star1"></div>
+                                </div>
+                                <p class="score b">{{item.subject.rating}}</p>
+                                <p class="comments">{{item.subject.rating_count}}人 评价</p>
+                            </div>
+                            <p class="desc">{{item.payload.description}}</p>
+                        </div>
+                        <div class="titlebox" v-if="item.kind_cn==='Top 5'">
+                            <p class="p1">{{item.payload.title}}</p>
+                            <p class="p2"><em>TOP1</em>{{item.subject.title}}</p>
+                            <div class="scorebox">
+                                <div v-if="item.subject.rating >= 9">
+                                    <div class="star10"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 8 && item.subject.rating <9">
+                                    <div class="star9"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 7 && item.subject.rating <8">
+                                    <div class="star8"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 6 && item.subject.rating <7">
+                                    <div class="star7"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 5 && item.subject.rating <6">
+                                    <div class="star6"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 4 && item.subject.rating <5">
+                                    <div class="star5"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 3 && item.subject.rating <4">
+                                    <div class="star4"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 2 && item.subject.rating <3">
+                                    <div class="star3"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 1 && item.subject.rating <0">
+                                    <div class="star2"></div>
+                                </div>
+                                <div v-else>
+                                    <div class="star1"></div>
+                                </div>
+                                <p class="score b">{{item.subject.rating}}</p>
+                                <p class="comments">{{item.subject.rating_count}}人 评价</p>
+                            </div>
+                            <p class="desc">{{item.payload.description}}</p>
+                        </div>
+                        <div class="titlebox" v-if="item.kind_cn==='人物'">
+                            <p class="p1">{{item.payload.title}}</p>
+                            <p class="p2"><em>TOP1</em>{{item.subject.name}}</p>
+                        </div>
+                        <div class="titlebox" v-if="item.kind_cn==='结束页'">
+                            <div class="p3">SEE YOU</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lines" v-if="item.kind_cn==='台词'">
+                    <p class="linetext tc">
+                        {{item.payload.text}}
+                        <em>——《{{item.subject.title}}》</em>
+                    </p>
+                </div>
+                
+                
+			        </div>
+			    </div>
+			</div>
+		</div>
+
+		
+		<script src="../js/util.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
+    	<script src="../js/kolento.js"></script>
+    	<script>
+    		(function() {
+				mui.init();
+				
+    		})();
+    		
+ 
+			 
+			 var ranking = new Vue({
+			 	el:'#ranking',
+			 	data(){
+			 		return{
+		                subjectbox:[
+		                    {
+		                        payload:{
+		                            mobile_background_img:'',
+		                            title:'',
+		                            description:''
+		                        },
+		                        subject:{
+		                            orig_title:'',
+		                            rating:'',
+		                            id:''
+		                        },
+		                        subjects:[
+		                            {
+		                                cover:'',
+		                                rating:'',
+		                                title:'',
+		                                id:''
+		                            }
+		                        ]
+		                    }
+		                ],
+                        page:1,
+                		playstatus:true
+			 		}
+			 	},
+			 	created(){
+			 								this.newmsg();
+			 		this.$nextTick(()=>{
+                		
+						var mySwiper = new Swiper ('.swiper-container', {
+						    direction: 'vertical',
+						    width: window.innerWidth,
+						    height: window.innerHeight,
+		                    on: {
+		                        slideChangeTransitionEnd: ()=>{
+		                            this.newmsg();
+		                        }
+		                    }
+						}) 
+					
+			 		})
+			 	},
+			 	methods:{
+			 		newmsg(){
+		                if(this.page<90){
+		                    axios.get(`https://xkolento.cn/2017/${this.page}`,{
+		
+		                    }).then((res)=>{
+		                        this.subjectbox.push(res.data.res)
+		                        if(this.page===6||this.page===53){
+		                            this.page+=2
+		                        }else if(this.page===81){
+		                            this.page+=3
+		                        }else if(this.page===90){
+		                            return false
+		                        }else{
+		                            this.page+=1
+		                        }
+		                    })
+		                }
+			 		}
+			 	}
+			 })
+    	</script>
+	</body>
+</html>

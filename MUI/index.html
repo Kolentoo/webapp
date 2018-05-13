@@ -10,10 +10,6 @@
 		<link href="css/mui.min.css" rel="stylesheet" />
 	    <link rel="stylesheet" type="text/css" href="css/core.css"/>
 	    <link rel="stylesheet" href="css/kolento.css" />
-		<style>
-			html,body {background-color: #efeff4;}
-/*			.title {margin: 20px 15px 10px;color: #6d6d72;font-size: 15px;padding-bottom: 51px;}*/
-		</style>
 	</head>
 	
 	<body>
@@ -21,7 +17,7 @@
 			
 			<div class="mui-slider" id="mslider">
 			    <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
-			        <a class="mui-control-item" href="#item1">推荐</a>
+			        <a class="mui-control-item mui-active" href="#item1">推荐</a>
 			        <a class="mui-control-item" href="#item2">分类</a>
 			    </div>
 			    <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
@@ -93,6 +89,7 @@
 		<script>
 			(function() {
 				mui.init({
+					statusBarBackground:"#fff",
 					swipeBack: true //启用右滑关闭功能
 				});
 				mui.plusReady(function() {
@@ -123,9 +120,9 @@
 							height: '100%'
 						},
 						rectStyles: {
-							color: '#d74d40',
+							color: '#fff',
 							radius: '50%',
-							borderColor: '#97352a',
+							borderColor: '#ccc',
 							borderWidth: '1px'
 						}
 					}, {
@@ -138,7 +135,7 @@
 							height: '45px'
 						},
 						rectStyles: {
-							color: '#d74d40'
+							color: '#fff'
 						}
 					}, {
 						tag: 'rect',
@@ -150,7 +147,7 @@
 							height: '50px'
 						},
 						rectStyles: {
-							color: '#97352a',
+							color: '#8f8f94',
 							radius: '50%'
 						}
 					}, {
@@ -176,13 +173,16 @@
 					//自定义监听图标点击事件
 					var active_color = '#fff';
 					drawNativeIcon.addEventListener('click', function(e) {
-						mui.alert('你点击了图标，你在此可以打开摄像头或者新窗口等自定义点击事件。', '悬浮球点击事件');
+						mui.openWindow({
+						  url: 'html/search.html',
+						  id: '1'
+						});
 						// 重绘字体颜色
 						if(active_color == '#fff') {
 							drawNativeIcon.drawText('\ue6b4', {}, {
 								fontSrc: '_www/fonts/menu.ttf',
 								align: 'center',
-								color: '#000',
+								color: '#fff',
 								size: '30px'
 							}, 'icon');
 							active_color = '#b01112';

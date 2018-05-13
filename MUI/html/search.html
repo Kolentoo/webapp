@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>TV</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<script src="../js/mui.js"></script>
+		<link rel="stylesheet" href="../css/mui.min.css">
+	    <link rel="stylesheet" type="text/css" href="../css/core.css"/>
+	    <link rel="stylesheet" href="../css/kolento.css" />
+	</head>
+
+	<body>
+		<div id="search" class="search">
+			<div class="search-box">
+				<div class="search-con clearfix">
+					<div class="mui-input-row fl">
+					    <label @tap="search(words)">
+					    	<img class="searchpic" src="../images/search.png" alt="" />
+					    </label>
+					    <input type="text" class="mui-input-speech mui-input-clear" placeholder="请输入关键字" v-model="words" @keyup.enter="search(words)">
+					</div>
+					<p class="cancel fr" @tap="close()">取消</p>
+				</div>
+				
+				<div class="mui-slider">
+				    <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+				        <a class="mui-control-item  mui-active" href="#item1">影视</a>
+				        <a class="mui-control-item" href="#item2">图书</a>
+				    </div>
+				    <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
+				    <div class="mui-slider-group">
+				        <div id="item1" class="mui-slider-item mui-control-content mui-active">
+				        	<div class="recommend" v-if="!searched">
+				        		<ul class="mui-table-view recon">
+			        		        <li class="mui-table-view-cell">
+			        		            <a class="mui-navigate-right">
+			        		            	<img class="rankicon" src="../images/top.png" alt="" />
+			        		                <em>2017年度电影榜单</em>
+			        		            </a>
+			        		        </li>
+			        		   </ul>
+				        	</div>
+					        <div class="result-con" v-if="searched">
+					            <div class="wrapper" ref="wrapper">
+					                <div class="content" ref="content">
+					                    <h2 class="search-title"><i>{{searchtitle}}</i> <em>共 {{searchcounts}} 条</em></h2>
+					                    <ul class="search-con">
+					                        <li class="search-list" v-for="(slist,idx) in searchresult" :key="idx" @click="moredetail(slist.id)">
+					                            <img class="work-pic fl" :src="'https://images.weserv.nl/?url='+slist.images.large.substring(7)" alt="">
+					                            <div class="work-detail">
+					                                <p class="workname b">{{slist.title}}</p>
+					                                <p class="originname">{{slist.original_title}}</p>
+					                                <p class="other">
+			                                    		年份：{{slist.year}}
+					                                    <em class="types" v-for="(item,idx) in slist.genres" :key="idx">{{item}} </em>
+					                                </p>
+					                                <p class="comment-num">{{slist.collect_count}} 人评价</p>
+					                                <div class="score-box clearfix" v-if="slist.rating">
+					                                    <div class="score fl">
+					                                        <div v-if="slist.rating.average >= 9">
+					                                            <div class="star10"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 8 && slist.rating.average <9">
+					                                            <div class="star9"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 7 && slist.rating.average <8">
+					                                            <div class="star8"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 6 && slist.rating.average <7">
+					                                            <div class="star7"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 5 && slist.rating.average <6">
+					                                            <div class="star6"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 4 && slist.rating.average <5">
+					                                            <div class="star5"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 3 && slist.rating.average <4">
+					                                            <div class="star4"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 2 && slist.rating.average <3">
+					                                            <div class="star3"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 1 && slist.rating.average <0">
+					                                            <div class="star2"></div>
+					                                        </div>
+					                                        <div v-else>
+					                                            <div class="star1"></div>
+					                                        </div>
+					                                    </div>
+					                                    <div class="scorenum fl">{{slist.rating.average}}</div>
+					                                </div>
+					                            </div>
+					                        </li>
+					                    </ul>
+					                </div>
+					            </div>
+					        </div>
+									        
+				        </div>
+				        <div id="item2" class="mui-slider-item mui-control-content">
+				        	<div class="recommend" v-if="!searched">
+				        		<ul class="mui-table-view recon">
+			        		        <li class="mui-table-view-cell">
+			        		            <a class="mui-navigate-right">
+			        		            	<img class="rankicon" src="../images/best.png" alt="" />
+			        		                <em>2017年度读书榜单</em>
+			        		            </a>
+			        		        </li>
+			        		    </ul>
+				        	</div>
+					        <div class="result-con" v-if="searched">
+					            <div class="wrapper" ref="wrapper">
+					                <div class="content" ref="content">
+					                    <h2 class="search-title"><i>搜索“{{words}}”的结果</i> <em>共 {{bookcounts}} 条</em></h2>
+					                    <ul class="search-con">
+					                        <li class="search-list" v-for="(slist,idx) in bookresult" :key="idx" @click="moredetail(slist.id)">
+					                            <img class="work-pic fl" :src="'https://images.weserv.nl/?url='+slist.images.large.substring(7)" alt="">
+					                            <div class="work-detail">
+					                                <p class="workname b">{{slist.title}}</p>
+					                                <p class="originname">{{slist.original_title}}</p>
+					                                <p class="author">
+					                                	作者：<span v-for="item in slist.author">{{item}}</span>
+					                                </p>
+					                                <p class="other">
+			                                    		出版年：{{slist.pubdate}}
+					                                    <em class="types" v-for="(item,idx) in slist.genres" :key="idx">{{item}} </em>
+					                                </p>
+					                                <p class="comment-num">{{slist.rating.numRaters}} 人评价</p>
+					                                <div class="score-box clearfix" v-if="slist.rating">
+					                                    <div class="score fl">
+					                                        <div v-if="slist.rating.average >= 9">
+					                                            <div class="star10"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 8 && slist.rating.average <9">
+					                                            <div class="star9"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 7 && slist.rating.average <8">
+					                                            <div class="star8"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 6 && slist.rating.average <7">
+					                                            <div class="star7"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 5 && slist.rating.average <6">
+					                                            <div class="star6"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 4 && slist.rating.average <5">
+					                                            <div class="star5"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 3 && slist.rating.average <4">
+					                                            <div class="star4"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 2 && slist.rating.average <3">
+					                                            <div class="star3"></div>
+					                                        </div>
+					                                        <div v-else-if="slist.rating.average >= 1 && slist.rating.average <0">
+					                                            <div class="star2"></div>
+					                                        </div>
+					                                        <div v-else>
+					                                            <div class="star1"></div>
+					                                        </div>
+					                                    </div>
+					                                    <div class="scorenum fl">{{slist.rating.average}}</div>
+					                                </div>
+					                            </div>
+					                        </li>
+					                    </ul>
+					                </div>
+					            </div>
+					        </div>
+								
+				        </div>
+				    </div>
+				</div>
+			
+			</div>
+
+			
+		</div>
+
+		
+
+		<script src="../js/util.js"></script>
+	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    	<script src="../js/kolento.js"></script>
+    	<script>
+    		(function() {
+				mui.init();
+				
+    		})();
+    		
+    		var search = new Vue({
+    			el:'#search',
+    			data(){
+    				return{
+    					searched:false,
+    					words:'',
+    					searchresult:'',
+    					searchcounts:'',
+    					searchtitle:'',
+    					bookresult:'',
+    					bookcounts:''
+    				}
+    			},
+    			created(){
+
+	  			},
+	  			mounted(){
+	  				
+	  			},
+    			methods:{
+    				close(){
+    					mui.back();
+    				},
+		            search(words){
+		            	let keywords = this.words;
+		                if(keywords!=''){
+		                    axios.get(`https://xkolento.cn/search/${keywords}`,{
+		                        params:{}
+		                    }).then(res=>{
+		                        this.searchresult=res.data.subjects
+		                        this.searchcounts=res.data.total
+		                        this.searchtitle=res.data.title
+		                        this.searched =true
+		                        this.words=''
+		                    })
+		                    
+		                    axios.get(`https://xkolento.cn/booksearchwords/${keywords}`,{
+		                        params:{}
+		                    }).then(res=>{
+		                        this.bookresult=res.data.books
+		                        this.bookcounts=res.data.books.length
+		                        this.searched = true
+		                        this.words=''
+		                    })
+		                    
+		                }
+		            }
+    			}
+    		})
+
+    	</script>
+	</body>
+</html>

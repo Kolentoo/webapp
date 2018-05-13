@@ -108,6 +108,9 @@
 		}
 	},
 	"plus": {
+		"statusbar":{
+			"background":"#fff"
+		},
 		"launchwebview": {
 			"bottom": "0px",
 			"background": "#f04d4e",
@@ -119,7 +122,7 @@
 						"left": "0",
 						"height": "50px",
 						"width": "100%",
-						"backgroundColor": "#d74d40"
+						"backgroundColor": "#fff"
 					},
 					"tags": [
 						{
@@ -456,5 +459,5 @@
 				"css/mui.css"
 			]
 		}
-	}
+	},"fullscreen":false
 }

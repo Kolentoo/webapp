@@ -1,7 +1,7 @@
 var util = {
 	options: {
-		ACTIVE_COLOR: "#fff",
-		NORMAL_COLOR: "#97352a",
+		ACTIVE_COLOR: "#d74d40",
+		NORMAL_COLOR: "#8f8f94",
 		subpages: ["html/tv.html", "html/anime.html","html/book.html"]
 	},
 	/**
