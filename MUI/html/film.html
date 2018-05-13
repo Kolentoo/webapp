@@ -19,9 +19,110 @@
 
 			<div class="swiper-container">
 			    <div class="swiper-wrapper">
+			        <div class="swiper-slide">
+			        	<div class="rankbox">
+		                    <div class="slidestart">
+		                        <img class="rankingbj" src="../images/ranking.gif" alt="">
+		                        <img class="rankingtitle1" src="../images/rankingtitle1.png" alt="">
+		                        <img class="rankinglight" src="../images/rankinglight.png" alt="">
+		                        <img class="downpic" src="../images/down.png" alt="">
+		                    </div>
+		                </div>
+			        </div>
+			        
 			        <div class="swiper-slide" v-for="(item,idx) in subjectbox" :key="idx">
+			        	<div class="rankbox">
+		                    <div class="slidecon">
+    				        	<img :src="'https://images.weserv.nl/?url='+item.payload.mobile_background_img.substring(7)" alt="" />
+    				        	                        <div class="titlebox" v-if="item.kind_cn==='Top 10'">
+                            <p class="p1">{{item.payload.title}}</p>
+                            <p class="p2"><em>TOP1</em>{{item.subject.title}}</p>
+                            <div class="scorebox">
+                                <div v-if="item.subject.rating >= 9">
+                                    <div class="star10"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 8 && item.subject.rating <9">
+                                    <div class="star9"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 7 && item.subject.rating <8">
+                                    <div class="star8"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 6 && item.subject.rating <7">
+                                    <div class="star7"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 5 && item.subject.rating <6">
+                                    <div class="star6"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 4 && item.subject.rating <5">
+                                    <div class="star5"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 3 && item.subject.rating <4">
+                                    <div class="star4"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 2 && item.subject.rating <3">
+                                    <div class="star3"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 1 && item.subject.rating <0">
+                                    <div class="star2"></div>
+                                </div>
+                                <div v-else>
+                                    <div class="star1"></div>
+                                </div>
+                                <p class="score b">{{item.subject.rating}}</p>
+                                <p class="comments">{{item.subject.rating_count}}人 评价</p>
+                            </div>
+                            <p class="desc">{{item.payload.description}}</p>
+                        </div>
+                        <div class="titlebox" v-if="item.kind_cn==='Top 5'">
+                            <p class="p1">{{item.payload.title}}</p>
+                            <p class="p2"><em>TOP1</em>{{item.subject.title}}</p>
+                            <div class="scorebox">
+                                <div v-if="item.subject.rating >= 9">
+                                    <div class="star10"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 8 && item.subject.rating <9">
+                                    <div class="star9"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 7 && item.subject.rating <8">
+                                    <div class="star8"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 6 && item.subject.rating <7">
+                                    <div class="star7"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 5 && item.subject.rating <6">
+                                    <div class="star6"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 4 && item.subject.rating <5">
+                                    <div class="star5"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 3 && item.subject.rating <4">
+                                    <div class="star4"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 2 && item.subject.rating <3">
+                                    <div class="star3"></div>
+                                </div>
+                                <div v-else-if="item.subject.rating >= 1 && item.subject.rating <0">
+                                    <div class="star2"></div>
+                                </div>
+                                <div v-else>
+                                    <div class="star1"></div>
+                                </div>
+                                <p class="score b">{{item.subject.rating}}</p>
+                                <p class="comments">{{item.subject.rating_count}}人 评价</p>
+                            </div>
+                            <p class="desc">{{item.payload.description}}</p>
+                        </div>
+                        <div class="titlebox" v-if="item.kind_cn==='人物'">
+                            <p class="p1">{{item.payload.title}}</p>
+                            <p class="p2"><em>TOP1</em>{{item.subject.name}}</p>
+                        </div>
+                        <div class="titlebox" v-if="item.kind_cn==='结束页'">
+                            <div class="p3">SEE YOU</div>
+                        </div>
+		                    </div>
+			        	</div>
 			        	
-			        	
+
 			        </div>
 			    </div>
                 
@@ -47,14 +148,33 @@
 			 	data(){
 			 		return{
 						subjectbox:[
-							
+//		                    {
+//		                        payload:{
+//		                            mobile_background_img:'',
+//		                            title:'',
+//		                            description:''
+//		                        },
+//		                        subject:{
+//		                            orig_title:'',
+//		                            rating:'',
+//		                            id:''
+//		                        },
+//		                        subjects:[
+//		                            {
+//		                                cover:'',
+//		                                rating:'',
+//		                                title:'',
+//		                                id:''
+//		                            }
+//		                        ]
+//		                    }
 						],
                         page:1,
                 		playstatus:true
 			 		}
 			 	},
 			 	created(){
-					this.newmsg();
+					
 			 		this.$nextTick(()=>{
                 		
 						var mySwiper = new Swiper ('.swiper-container', {
@@ -65,8 +185,12 @@
 		                        slideChangeTransitionEnd: ()=>{
 		                            this.newmsg();
 		                        }
-		                    }
+		                    },
+		                    initialSlide :0, 
+							observer:true,//修改swiper自己或子元素时，自动初始化swiper 
+							observeParents:true//修改swiper的父元素时，自动初始化swiper 
 						}) 
+						this.newmsg();
 					
 			 		})
 			 	},
@@ -77,7 +201,7 @@
 		
 		                    }).then((res)=>{
 		                        this.subjectbox.push(res.data.res);
-		                        console.log(this.subjectbox)
+
 		                        if(this.page===6||this.page===53){
 		                            this.page+=2
 		                        }else if(this.page===81){
@@ -87,6 +211,7 @@
 		                        }else{
 		                            this.page+=1
 		                        }
+		                        
 		                    })
 		                }
 			 		}
