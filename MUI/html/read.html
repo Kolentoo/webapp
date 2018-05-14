@@ -26,10 +26,11 @@
 			        <div class="swiper-slide">
 			        	<div class="rankbox">
 		                    <div class="slidestart">
-		                        <img class="rankingbj" src="../images/ranking.gif" alt="">
-		                        <img class="rankingtitle1" src="../images/rankingtitle1.png" alt="">
-		                        <img class="rankinglight" src="../images/rankinglight.png" alt="">
+		                        <img class="rankingbj" src="../images/ranking2.jpg" alt="">
+		                        <img class="rankingtitle1" src="../images/rankingtitle2.png" alt="">
+		                        <img class="rankinglight" src="../images/rankinglight2.png" alt="">
 		                        <img class="downpic" src="../images/down.png" alt="">
+		                        <img class="bookpic" src="../images/book.png" alt="" />
 		                    </div>
 		                </div>
 			        </div>
@@ -200,7 +201,7 @@
 			 		},
 			 		newmsg(){
 		                if(this.page<90){
-		                    axios.get(`https://xkolento.cn/2017/${this.page}`,{
+		                    axios.get(`https://xkolento.cn/books2017/${this.page}`,{
 		
 		                    }).then((res)=>{
 		                        this.subjectbox.push(res.data.res);

@@ -36,7 +36,7 @@
 				        <div id="item1" class="mui-slider-item mui-control-content mui-active">
 				        	<div class="recommend" v-if="!searched">
 				        		<ul class="mui-table-view recon">
-			        		        <li class="mui-table-view-cell">
+			        		        <li class="mui-table-view-cell" @tap="film()">
 			        		            <a class="mui-navigate-right">
 			        		            	<img class="rankicon" src="../images/top.png" alt="" />
 			        		                <em>2017年度电影榜单</em>
@@ -49,7 +49,7 @@
 					                <div class="content" ref="content">
 					                    <h2 class="search-title"><i>{{searchtitle}}</i> <em>共 {{searchcounts}} 条</em></h2>
 					                    <ul class="search-con">
-					                        <li class="search-list" v-for="(slist,idx) in searchresult" :key="idx" @click="moredetail(slist.id)">
+					                        <li class="search-list" v-for="(slist,idx) in searchresult" :key="idx" @tap="moviedetail(slist.id,slist.title)">
 					                            <img class="work-pic fl" :src="'https://images.weserv.nl/?url='+slist.images.large.substring(7)" alt="">
 					                            <div class="work-detail">
 					                                <p class="workname b">{{slist.title}}</p>
@@ -105,7 +105,7 @@
 				        <div id="item2" class="mui-slider-item mui-control-content">
 				        	<div class="recommend" v-if="!searched">
 				        		<ul class="mui-table-view recon">
-			        		        <li class="mui-table-view-cell">
+			        		        <li class="mui-table-view-cell" @tap="read()">
 			        		            <a class="mui-navigate-right">
 			        		            	<img class="rankicon" src="../images/best.png" alt="" />
 			        		                <em>2017年度读书榜单</em>
@@ -118,7 +118,7 @@
 					                <div class="content" ref="content">
 					                    <h2 class="search-title"><i>搜索“{{words}}”的结果</i> <em>共 {{bookcounts}} 条</em></h2>
 					                    <ul class="search-con">
-					                        <li class="search-list" v-for="(slist,idx) in bookresult" :key="idx" @click="moredetail(slist.id)">
+					                        <li class="search-list" v-for="(slist,idx) in bookresult" :key="idx" @tap="bookdetail(slist.id,slist.title)">
 					                            <img class="work-pic fl" :src="'https://images.weserv.nl/?url='+slist.images.large.substring(7)" alt="">
 					                            <div class="work-detail">
 					                                <p class="workname b">{{slist.title}}</p>
@@ -217,6 +217,55 @@
     				close(){
     					mui.back();
     				},
+    				moviedetail(mid,mname){
+						mui.openWindow({
+						  url:`../html/detail.html?mid=${mid}`,
+						  id: mid,
+						  styles: {                             // 窗口参数 参考5+规范中的WebviewStyle,也就是说WebviewStyle下的参数都可以在此设置
+						    titleNView: {                       // 窗口的标题栏控件
+						      titleText:mname,                // 标题栏文字,当不设置此属性时，默认加载当前页面的标题，并自动更新页面的标题
+						      titleColor:"#333",             // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"
+						      titleSize:"17px",                 // 字体大小,默认17px
+						      backgroundColor:"#fff",        // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
+						      
+						      progress:{                        // 标题栏控件的进度条样式
+						        color:"#00FF00",                // 进度条颜色,默认值为"#00FF00"  
+						        height:"2px"                    // 进度条高度,默认值为"2px"         
+						      },
+						      splitLine:{                       // 标题栏控件的底部分割线，类似borderBottom
+						        color:"#CCCCCC",                // 分割线颜色,默认值为"#CCCCCC"  
+						        height:"1px"                    // 分割线高度,默认值为"2px"
+						      },
+						      autoBackButton:true
+						    }
+						  }
+						});
+    				},
+					bookdetail(mid,mname){
+						mui.openWindow({
+						  url:`../html/bookdetail.html?mid=${mid}`,
+						  id: mid,
+						  styles: {                             // 窗口参数 参考5+规范中的WebviewStyle,也就是说WebviewStyle下的参数都可以在此设置
+						    titleNView: {                       // 窗口的标题栏控件
+						      titleText:mname,                // 标题栏文字,当不设置此属性时，默认加载当前页面的标题，并自动更新页面的标题
+						      titleColor:"#333",             // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"
+						      titleSize:"17px",                 // 字体大小,默认17px
+						      backgroundColor:"#fff",        // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
+						      
+						      progress:{                        // 标题栏控件的进度条样式
+						        color:"#00FF00",                // 进度条颜色,默认值为"#00FF00"  
+						        height:"2px"                    // 进度条高度,默认值为"2px"         
+						      },
+						      splitLine:{                       // 标题栏控件的底部分割线，类似borderBottom
+						        color:"#CCCCCC",                // 分割线颜色,默认值为"#CCCCCC"  
+						        height:"1px"                    // 分割线高度,默认值为"2px"
+						      },
+						      autoBackButton:true
+						    }
+						  }
+						});
+    				},
+
 		            search(words){
 		            	let keywords = this.words;
 		                if(keywords!=''){
@@ -240,6 +289,56 @@
 		                    })
 		                    
 		                }
+		            },
+		            film(){
+						mui.openWindow({
+						  url: '../html/film.html',
+						  id: 'mid',
+						  styles: {                             // 窗口参数 参考5+规范中的WebviewStyle,也就是说WebviewStyle下的参数都可以在此设置
+						    titleNView: {                       // 窗口的标题栏控件
+						      titleText:'2017年度电影榜单',                // 标题栏文字,当不设置此属性时，默认加载当前页面的标题，并自动更新页面的标题
+						      titleColor:"#333",             // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"
+						      type:'transparent',
+						      titleSize:"17px",                 // 字体大小,默认17px
+						      backgroundColor:"#fff",        // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
+						      
+						      progress:{                        // 标题栏控件的进度条样式
+						        color:"#00FF00",                // 进度条颜色,默认值为"#00FF00"  
+						        height:"0px"                    // 进度条高度,默认值为"2px"         
+						      },
+						      splitLine:{                       // 标题栏控件的底部分割线，类似borderBottom
+						        color:"#CCCCCC",                // 分割线颜色,默认值为"#CCCCCC"  
+						        height:"1px"                    // 分割线高度,默认值为"2px"
+						      },
+						      autoBackButton:true
+						    }
+						  }
+						});
+		            },
+		            read(){
+						mui.openWindow({
+						  url: '../html/read.html',
+						  id: 'mid',
+						  styles: {                             // 窗口参数 参考5+规范中的WebviewStyle,也就是说WebviewStyle下的参数都可以在此设置
+						    titleNView: {                       // 窗口的标题栏控件
+						      titleText:'2017年度阅读榜单',                // 标题栏文字,当不设置此属性时，默认加载当前页面的标题，并自动更新页面的标题
+						      titleColor:"#333",             // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"
+						      type:'transparent',
+						      titleSize:"17px",                 // 字体大小,默认17px
+						      backgroundColor:"#fff",        // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
+						      
+						      progress:{                        // 标题栏控件的进度条样式
+						        color:"#00FF00",                // 进度条颜色,默认值为"#00FF00"  
+						        height:"0px"                    // 进度条高度,默认值为"2px"         
+						      },
+						      splitLine:{                       // 标题栏控件的底部分割线，类似borderBottom
+						        color:"#CCCCCC",                // 分割线颜色,默认值为"#CCCCCC"  
+						        height:"1px"                    // 分割线高度,默认值为"2px"
+						      },
+						      autoBackButton:true
+						    }
+						  }
+						});
 		            }
     			}
     		})
