@@ -184,7 +184,7 @@ border-radius:8px;}
 #ranking .swiper-slide {width: 100%;}
 #ranking .rankbox {height: 100%;width: 100%;}
 #ranking .slidestart {height: 100%;}
-#ranking .bookpic {width: 250px;position: absolute;left: 50%;top: 50%;z-index:800;margin:-215px 0 0 -130px;}
+#ranking .bookpic {width: 250px;position: absolute;left: 50%;top: 23.5%;z-index:800;margin-left: -120px;}
 #ranking .rankingbj {width: 100%;height: 100%;}
 #ranking .rankingtitle1 {position: absolute;width: 90%;top: 20%;left: 5%;z-index:80;}
 #ranking .rankinglight {position: absolute;width: 100%;top: 0;left: 0;height: 100%;}
@@ -224,3 +224,5 @@ text-align: center;padding-bottom: 10px;letter-spacing: 0;}
 #ranking .chart .corner {position: absolute;top: 0;left: 0;width: 25px;}
 #ranking .number {font-size: 14px;position: absolute;top: -3px;left: 4px;color:#fff;}
 #ranking .musicicon {width: 15px;position: fixed;top: 15px;right: 15px;z-index:888;}
+#ranking .article {width: 58%;color:#555;font-size: 15px;position: absolute;top: 20%;left: 30%;}
+#ranking .article p{line-height: 30px;font-family: STFangsong,Fangsong,FangSong_GB2312,STSong,serif;}

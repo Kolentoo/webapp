@@ -20,7 +20,7 @@
 				<img class="vm musicicon" src="../images/music.gif" alt="" v-if="playing"/>
 				<img class="vm musicicon" src="../images/music.png" alt="" v-if="!playing"/>
 			</div>
-			<audio id="audio" src="../images/music.mp3" loop="loop" autoplay="autoplay"></audio>
+			<audio id="audio" src="../images/bmusic.mp3" loop="loop" autoplay="autoplay"></audio>
 			<div class="swiper-container swipermain">
 			    <div class="swiper-wrapper">
 			        <div class="swiper-slide">
@@ -39,7 +39,7 @@
 
 			        	<div class="rankbox">
 		                    <div class="slidecon">
-    				        	<img class="imgbj vm" :src="item.payload.mobile_background_img?'https://images.weserv.nl/?url='+item.payload.mobile_background_img.substring(7):''" alt="" />
+    				        	<img class="imgbj vm g10" :src="item.payload.mobile_background_img?'https://images.weserv.nl/?url='+item.payload.mobile_background_img.substring(7):''" alt="" />
 		                        <div class="titlebox" v-if="item.kind_cn==='Top 10'">
 		                            <p class="p1">{{item.payload.title}}</p>
 		                            <p class="p2"><em>TOP1</em>{{item.subject.title}}</p>
@@ -122,10 +122,15 @@
 		                            <p class="p1">{{item.payload.title}}</p>
 		                            <p class="p2"><em>TOP1</em>{{item.subject.name}}</p>
 		                        </div>
+		                        <div class="article" v-if="item.kind_cn==='书摘'">
+		                        	<p class="p1">{{item.payload.content}}</p>
+		                        	<p class="p1">——{{item.subject.title}}</p>
+		                        </div>
 		                        <div class="titlebox" v-if="item.kind_cn==='结束页'">
 		                            <div class="p3">SEE YOU</div>
 		                        </div>
 				                <subjectscroll :item="item.subjects" v-if="item.kind_cn==='Top 10'"></subjectscroll>
+				                <subjectscroll :item="item.subjects" v-if="item.kind_cn==='Top 5'"></subjectscroll>
 					        	<subjectscroll :people="item.people" v-if="item.kind_cn==='人物'"></subjectscroll>
 		                    </div>
 			        	</div>
@@ -200,19 +205,20 @@
 			 			
 			 		},
 			 		newmsg(){
-		                if(this.page<90){
+		                if(this.page<47){
 		                    axios.get(`https://xkolento.cn/books2017/${this.page}`,{
 		
 		                    }).then((res)=>{
-		                        this.subjectbox.push(res.data.res);
-
-		                        if(this.page===6||this.page===53){
+		                        if(this.page===43){
+		                        	this.subjectbox.push(res.data.res);
 		                            this.page+=2
-		                        }else if(this.page===81){
+		                        }else if(this.page===40){
+		                        	this.subjectbox.push(res.data.res);
 		                            this.page+=3
-		                        }else if(this.page===90){
+		                        }else if(this.page===46){
 		                            return false
 		                        }else{
+		                        	this.subjectbox.push(res.data.res);
 		                            this.page+=1
 		                        }
 		                        
