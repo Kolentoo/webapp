@@ -4,10 +4,10 @@ var mshow =
     <div class="mui-scroll clearfix">
         <a class="mui-control-item block videolist" v-for="(item,idx) in movietype" :key="idx">
         	<div class="chart" @tap="godetail(item.id,item.title)">
-	            <img class="show-pic vm g10" v-if="item.images" :src="'https://images.weserv.nl/?url='+item.images.small.substring(7)" alt="">
-				<img class="show-pic vm g10" v-if="item.cover_url" :src="'https://images.weserv.nl/?url='+item.cover_url.substring(7)" alt="">
-				<img class="show-pic vm g10" v-if="item.cover" :src="'https://images.weserv.nl/?url='+item.cover.substring(7)" alt="">
-				<img class="show-pic vm g10" v-if="item.image" :src="'https://images.weserv.nl/?url='+item.image.substring(7)" alt="">
+	            <img class="show-pic vm g10" v-if="item.images" src="../images/k.jpg" :data-lazyload="'https://images.weserv.nl/?url='+item.images.small.substring(7)" alt="">
+				<img class="show-pic vm g10" v-if="item.cover_url" src="../images/k.jpg" :data-lazyload="'https://images.weserv.nl/?url='+item.cover_url.substring(7)" alt="">
+				<img class="show-pic vm g10" v-if="item.cover" src="../images/k.jpg" :data-lazyload="'https://images.weserv.nl/?url='+item.cover.substring(7)" alt="">
+				<img class="show-pic vm g10" v-if="item.image" src="../images/k.jpg" :data-lazyload="'https://images.weserv.nl/?url='+item.image.substring(7)" alt="">
 			</div>
 		    <p class="name">{{item.title}}</p>
 			<div class="score">
@@ -166,7 +166,7 @@ mui('.moviescroll').scroll({
 	startY: 0, //初始化时滚动至y
 	indicators: false, //是否显示滚动条
 	bounce: true, //是否启用回弹
-	deceleration: 0.0009 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+	deceleration: 0.1 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
 });
 
 Vue.component('mshow', {
@@ -178,7 +178,9 @@ Vue.component('mshow', {
     	}
     },
     created(){
+		this.$nextTick(()=>{
 
+		})
     },
     methods: {
     	godetail(mid,mname){
@@ -224,6 +226,10 @@ Vue.component('mshow', {
 				        height:"1px"                    // 分割线高度,默认值为"2px"
 				      },
 				      autoBackButton:true
+				    },
+					waiting:{
+				      autoShow:false,//自动显示等待框，默认为true
+				      title:'正在加载...'
 				    }
 				  }
 				});
@@ -247,7 +253,11 @@ Vue.component('mshow', {
 				      },
 				      autoBackButton:true
 				    }
-				  }
+				  },
+				waiting:{
+			      autoShow:false,//自动显示等待框，默认为true
+			      title:'正在加载...'
+			    }
 				});
 			}
     	}

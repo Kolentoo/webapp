@@ -74,7 +74,7 @@
 		            <h2>演员</h2>
 		            <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" v-if="detail.casts">
 		                <div class="mui-scroll">
-		                    <a class="mui-control-item actor-list" v-for="(item,idx) in detail.casts" :key="idx" @tap="persondetail(item.id,item.name)">
+		                    <a class="mui-control-item actor-list" v-for="(item,idx) in detail.casts" :key="idx" @tap="persondetail(item.id,item.name,item.avatars)">
 	                            <img class="actor-pic vm" v-if="item.avatars-0!=0" :src="'https://images.weserv.nl/?url='+item.avatars.small.substring(7)" alt="">
 	                            <img class="actor-pic vm" v-if="item.avatars-0===0" src="../images/K.jpg" alt="">
 	                            <p class="actor-name chara-name">{{item.name}}</p>
@@ -86,7 +86,7 @@
 		            <h2>导演</h2>
 		            <div class="mui-scroll-wrapper mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" v-if="detail.casts">
 		                <div class="mui-scroll">
-		                    <a class="mui-control-item actor-list" v-for="(item,idx) in detail.directors" :key="idx" @tap="persondetail(item.id,item.name)">
+		                    <a class="mui-control-item actor-list" v-for="(item,idx) in detail.directors" :key="idx" @tap="persondetail(item.id,item.name,item.avatars)">
 	                            <img class="actor-pic vm" v-if="item.avatars-0!=0" :src="'https://images.weserv.nl/?url='+item.avatars.small.substring(7)" alt="">
 	                            <img class="actor-pic vm" v-if="item.avatars-0===0" src="../images/K.jpg" alt="">
 	                            <p class="actor-name">{{item.name}}</p>
@@ -95,11 +95,16 @@
 		            </div>
 				</div>
 	        </div>
+			<div id="loading" v-if="loading">
+				<img class="loadpic vm" src="../images/loading.gif" alt="" />
+			</div>
 		</div>
 		
 		<script src="../js/mui.js"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	    <script type="text/javascript" src="../js/mui.lazyload.js"></script>
+		<script type="text/javascript" src="../js/mui.lazyload.img.js"></script>
     	<script src="../js/kolento.js"></script>
 		<script>
 			mui.init({
@@ -109,6 +114,7 @@
 				el:'#detail',
 				data(){
 					return{
+						loading:true,
 		                detail:{
 		                    images:{
 		                        large:''
@@ -150,29 +156,42 @@
 			            })
 					}
 				},
+				mounted(){
+					var detail = document.getElementById("detail");
+					var lazyLoadApi2 = mui('#detail').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
+					    autoDestroy: false,
+					    placeholder: '../images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
+					});
+					mui.init();
+					this.loading=false
+				},
 				methods:{
-					persondetail(mid,mname){
-						mui.openWindow({
-						  url: `person.html?${mid}`,
-						  id: mid,
-						  styles: {                             // 窗口参数 参考5+规范中的WebviewStyle,也就是说WebviewStyle下的参数都可以在此设置
-						    titleNView: {                       // 窗口的标题栏控件
-						      titleText:mname,                // 标题栏文字,当不设置此属性时，默认加载当前页面的标题，并自动更新页面的标题
-						      titleColor:"#333",             // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"
-						      titleSize:"17px",                 // 字体大小,默认17px
-						      backgroundColor:"#F7F7F7",        // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
-						      progress:{                        // 标题栏控件的进度条样式
-						        color:"#00FF00",                // 进度条颜色,默认值为"#00FF00"  
-						        height:"2px"                    // 进度条高度,默认值为"2px"         
-						      },
-						      splitLine:{                       // 标题栏控件的底部分割线，类似borderBottom
-						        color:"#CCCCCC",                // 分割线颜色,默认值为"#CCCCCC"  
-						        height:"1px"                    // 分割线高度,默认值为"2px"
-						      },
-						      autoBackButton:true
-						    }
-						  }
-						});
+					persondetail(mid,mname,mavatars){
+						if(mavatars-0===0){
+							mui.toast('条目信息不足');
+						}else{
+							mui.openWindow({
+							  url: `person.html?${mid}`,
+							  id: mid,
+							  styles: {                             // 窗口参数 参考5+规范中的WebviewStyle,也就是说WebviewStyle下的参数都可以在此设置
+							    titleNView: {                       // 窗口的标题栏控件
+							      titleText:mname,                // 标题栏文字,当不设置此属性时，默认加载当前页面的标题，并自动更新页面的标题
+							      titleColor:"#333",             // 字体颜色,颜色值格式为"#RRGGBB",默认值为"#000000"
+							      titleSize:"17px",                 // 字体大小,默认17px
+							      backgroundColor:"#F7F7F7",        // 控件背景颜色,颜色值格式为"#RRGGBB",默认值为"#F7F7F7"
+							      progress:{                        // 标题栏控件的进度条样式
+							        color:"#00FF00",                // 进度条颜色,默认值为"#00FF00"  
+							        height:"2px"                    // 进度条高度,默认值为"2px"         
+							      },
+							      splitLine:{                       // 标题栏控件的底部分割线，类似borderBottom
+							        color:"#CCCCCC",                // 分割线颜色,默认值为"#CCCCCC"  
+							        height:"1px"                    // 分割线高度,默认值为"2px"
+							      },
+							      autoBackButton:true
+							    }
+							  }
+							});
+						}
 					}
 				}
 			})

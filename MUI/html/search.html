@@ -111,7 +111,7 @@
 			        		                <em>2017年度读书榜单</em>
 			        		            </a>
 			        		        </li>
-			        		    </ul>
+			        		   </ul>
 				        	</div>
 					        <div class="result-con" v-if="searched">
 					            <div class="wrapper" ref="wrapper">
@@ -179,7 +179,15 @@
 			
 			</div>
 
-			
+		    <div class="about" v-if="!searched">
+		    	<a href="https://m.weibo.cn/p/1005051921492471" target="_blank">
+		    		<img class="authorpic vm" src="../images/k.jpg" alt="" />
+		    	</a>
+		    </div>
+		    
+			<div id="loading" v-if="loading">
+				<img class="loadpic vm" src="../images/loading.gif" alt="" />
+			</div>
 		</div>
 
 		
@@ -187,6 +195,8 @@
 		<script src="../js/util.js"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	    <script type="text/javascript" src="../js/mui.lazyload.js"></script>
+		<script type="text/javascript" src="../js/mui.lazyload.img.js"></script>
     	<script src="../js/kolento.js"></script>
     	<script>
     		(function() {
@@ -198,6 +208,7 @@
     			el:'#search',
     			data(){
     				return{
+    					loading:false,
     					searched:false,
     					words:'',
     					searchresult:'',
@@ -211,7 +222,6 @@
 
 	  			},
 	  			mounted(){
-	  				
 	  			},
     			methods:{
     				close(){
@@ -267,6 +277,7 @@
     				},
 
 		            search(words){
+		            	this.loading=true
 		            	let keywords = this.words;
 		                if(keywords!=''){
 		                    axios.get(`https://xkolento.cn/search/${keywords}`,{
@@ -287,7 +298,15 @@
 		                        this.searched = true
 		                        this.words=''
 		                    })
-		                    
+							var search = document.getElementById("search");
+							var lazyLoadApi2 = mui('#search').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
+							    autoDestroy: false,
+							    placeholder: '../images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
+							});
+							mui.init();
+							this.loading=false
+		                }else{
+		                	mui.toast('请输入关键字')
 		                }
 		            },
 		            film(){

@@ -116,10 +116,15 @@
 			        </div>
 			    </div>
 			</div>
+			<div id="loading" v-if="loading">
+				<img class="loadpic vm" src="../images/loading.gif" alt="" />
+			</div>
 		</div>
 		<script src="../js/util.js"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	    <script type="text/javascript" src="../js/mui.lazyload.js"></script>
+		<script type="text/javascript" src="../js/mui.lazyload.img.js"></script>
     	<script src="../js/kolento.js"></script>
     	<script src="../js/movieshow.js"></script>
     	<script>
@@ -132,6 +137,7 @@
 				el: '#tv',
 				data(){
 					return{
+						loading:true,
 		                hotnew:'',
 		                hothot:'',
 		                hotnice:'',
@@ -162,6 +168,27 @@
 		                this.hotnewapi();
 		                this.hothotapi();
 		                this.hotniceapi();
+		                this.americanewapi();
+		                this.americahotapi();
+		                this.americaniceapi();
+		                setTimeout(()=>{
+	                        this.englandnewapi();
+	                        this.englandhotapi();
+	                        this.englandniceapi();
+	                        this.koreanewapi();
+	                        this.koreahotapi();
+	                        this.koreaniceapi();
+	                        
+		                },200)
+		                setTimeout(()=>{
+                        	this.japannewapi();
+	                        this.japanhotapi();
+	                        this.japanniceapi();
+	                        this.chinanewapi();
+	                        this.chinahotapi();
+	                        this.chinaniceapi();
+	                        
+		                },400)
 		            }else{
 		                let hotnew = localStorage.getItem('hotnew');
 		                if(hotnew){
@@ -190,192 +217,169 @@
 		                }else{
 		                    this.hotniceapi();
 		                }
+		                
+	                	let americanew = localStorage.getItem('americanew');
+		                if(americanew){
+		                    let americanewJson = JSON.parse(americanew)
+		                    console.log(americanewJson)
+		                    this.americanew = americanewJson
+		                }else{
+		                    this.americanewapi();
+		                }
+		
+		                let americahot = localStorage.getItem('americahot');
+		                if(americahot){
+                            let americahotJson = JSON.parse(americahot)
+                            console.log(americahotJson)
+                            this.americahot = americahotJson
+		                }else{
+		                    this.americahotapi();
+		                }
+		
+		                let americanice = localStorage.getItem('americanice');
+		                if(americanice){
+                            let americaniceJson = JSON.parse(americanice)
+                            console.log(americaniceJson)
+                            this.americanice = americaniceJson
+		                }else{
+		                    this.americaniceapi();
+		                }
+		                
+		                
+		                setTimeout(()=>{
+	                        let englandnew = localStorage.getItem('englandnew');
+	                        if(englandnew){
+	                            let englandnewJson = JSON.parse(englandnew)
+	                            console.log(englandnewJson)
+	                            this.englandnew = englandnewJson
+	                        }else{
+	                            this.englandnewapi();
+	                        }
+	
+	                        let englandhot = localStorage.getItem('englandhot');
+	                        if(englandhot){
+	                            let englandhotJson = JSON.parse(englandhot)
+	                            console.log(englandhotJson)
+	                            this.englandhot = englandhotJson
+	                        }else{
+	                            this.englandhotapi();
+	                        }
+	
+	                        let englandnice = localStorage.getItem('englandnice');
+	                        if(englandnice){
+	                            let englandniceJson = JSON.parse(englandnice)
+	                            console.log(englandniceJson)
+	                            this.englandnice = englandniceJson
+	                            this.load=false
+	                        }else{
+	                            this.englandniceapi();
+	                        }
+	                        
+	                        let koreanew = localStorage.getItem('koreanew');
+	                        if(koreanew){
+	                            let koreanewJson = JSON.parse(koreanew)
+	                            console.log(koreanewJson)
+	                            this.koreanew = koreanewJson
+	                        }else{
+	                            this.koreanewapi();
+	                        }
+	
+	                        let koreahot = localStorage.getItem('koreahot');
+	                        if(koreahot){
+	                            let koreahotJson = JSON.parse(koreahot)
+	                            console.log(koreahotJson)
+	                            this.koreahot = koreahotJson
+	                        }else{
+	                            this.koreahotapi();
+	                        }
+	
+	                        let koreanice = localStorage.getItem('koreanice');
+	                        if(koreanice){
+	                            let koreaniceJson = JSON.parse(koreanice)
+	                            console.log(koreaniceJson)
+	                            this.koreanice = koreaniceJson
+	                            this.load=false
+	                        }else{
+	                            this.koreaniceapi();
+	                        }
+	                        
+		                },200)
+		                
+		                setTimeout(()=>{
+	                        let japannew = localStorage.getItem('japannew');
+	                        if(japannew){
+	                            let japannewJson = JSON.parse(japannew)
+	                            console.log(japannewJson)
+	                            this.japannew = japannewJson
+	                        }else{
+	                            this.japannewapi();
+	                        }
+	
+	                        let japanhot = localStorage.getItem('japanhot');
+	                        if(japanhot){
+	                            let japanhotJson = JSON.parse(japanhot)
+	                            console.log(japanhotJson)
+	                            this.japanhot = japanhotJson
+	                        }else{
+	                            this.japanhotapi();
+	                        }
+	
+	                        let japannice = localStorage.getItem('japannice');
+	                        if(japannice){
+	                            let japanniceJson = JSON.parse(japannice)
+	                            console.log(japanniceJson)
+	                            this.japannice = japanniceJson
+	                            this.load=false
+	                        }else{
+	                            this.japanniceapi();
+	                        }
+	                        
+                        	let chinanew = localStorage.getItem('chinanew');
+	                        if(chinanew){
+	                            let chinanewJson = JSON.parse(chinanew)
+	                            console.log(chinanewJson)
+	                            this.chinanew = chinanewJson
+	                        }else{
+	                            this.chinanewapi();
+	                        }
+	
+	                        let chinahot = localStorage.getItem('chinahot');
+	                        if(chinahot){
+	                            let chinahotJson = JSON.parse(chinahot)
+	                            console.log(chinahotJson)
+	                            this.chinahot = chinahotJson
+	                        }else{
+	                            this.chinahotapi();
+	                        }
+	
+	                        let chinanice = localStorage.getItem('chinanice');
+	                        if(chinanice){
+	                            let chinaniceJson = JSON.parse(chinanice)
+	                            console.log(chinaniceJson)
+	                            this.chinanice = chinaniceJson
+	                            this.load=false
+	                        }else{
+	                            this.chinaniceapi();
+	                        }
+		                },400)
 		            }
 			
 				},
 				mounted(){
-					let myDate = new Date();
-		            let day = myDate.getDate();
-		            let firstday = localStorage.getItem('today')
-					document.querySelector('.mui-slider').addEventListener('slide', (event)=> {
-						if(event.detail.slideNumber===1){
-				            if(firstday!=day){
-				            	localStorage.setItem('today',day)
-				                this.americanewapi();
-				                this.americahotapi();
-				                this.americaniceapi();
-				            }else{
-				                let americanew = localStorage.getItem('americanew');
-				                if(americanew){
-				                    let americanewJson = JSON.parse(americanew)
-				                    console.log(americanewJson)
-				                    this.americanew = americanewJson
-				                }else{
-				                    this.americanewapi();
-				                }
-				
-				                let americahot = localStorage.getItem('americahot');
-				                if(americahot){
-		                            let americahotJson = JSON.parse(americahot)
-		                            console.log(americahotJson)
-		                            this.americahot = americahotJson
-				                }else{
-				                    this.americahotapi();
-				                }
-				
-				                let americanice = localStorage.getItem('americanice');
-				                if(americanice){
-		                            let americaniceJson = JSON.parse(americanice)
-		                            console.log(americaniceJson)
-		                            this.americanice = americaniceJson
-				                }else{
-				                    this.americaniceapi();
-				                }
-				            }
-				
-					  	}else if(event.detail.slideNumber===2){
-		                    if(firstday!=day){
-		                        this.englandnewapi();
-		                        this.englandhotapi();
-		                        this.englandniceapi();
-		                    }else{
-		                        let englandnew = localStorage.getItem('englandnew');
-		                        if(englandnew){
-		                            let englandnewJson = JSON.parse(englandnew)
-		                            console.log(englandnewJson)
-		                            this.englandnew = englandnewJson
-		                        }else{
-		                            this.englandnewapi();
-		                        }
-		
-		                        let englandhot = localStorage.getItem('englandhot');
-		                        if(englandhot){
-		                            let englandhotJson = JSON.parse(englandhot)
-		                            console.log(englandhotJson)
-		                            this.englandhot = englandhotJson
-		                        }else{
-		                            this.englandhotapi();
-		                        }
-		
-		                        let englandnice = localStorage.getItem('englandnice');
-		                        if(englandnice){
-		                            let englandniceJson = JSON.parse(englandnice)
-		                            console.log(englandniceJson)
-		                            this.englandnice = englandniceJson
-		                            this.load=false
-		                        }else{
-		                            this.englandniceapi();
-		                        }
-		                    }
-						}else if(event.detail.slideNumber===3){
-		                    if(firstday!=day){
-		                        this.koreanewapi();
-		                        this.koreahotapi();
-		                        this.koreaniceapi();
-		                    }else{
-		                        let koreanew = localStorage.getItem('koreanew');
-		                        if(koreanew){
-		                            let koreanewJson = JSON.parse(koreanew)
-		                            console.log(koreanewJson)
-		                            this.koreanew = koreanewJson
-		                        }else{
-		                            this.koreanewapi();
-		                        }
-		
-		                        let koreahot = localStorage.getItem('koreahot');
-		                        if(koreahot){
-		                            let koreahotJson = JSON.parse(koreahot)
-		                            console.log(koreahotJson)
-		                            this.koreahot = koreahotJson
-		                        }else{
-		                            this.koreahotapi();
-		                        }
-		
-		                        let koreanice = localStorage.getItem('koreanice');
-		                        if(koreanice){
-		                            let koreaniceJson = JSON.parse(koreanice)
-		                            console.log(koreaniceJson)
-		                            this.koreanice = koreaniceJson
-		                            this.load=false
-		                        }else{
-		                            this.koreaniceapi();
-		                        }
-		                    }
-						}else if(event.detail.slideNumber===4){
-		                    if(firstday!=day){
-		                        this.japannewapi();
-		                        this.japanhotapi();
-		                        this.japanniceapi();
-		                    }else{
-		                        let japannew = localStorage.getItem('japannew');
-		                        if(japannew){
-		                            let japannewJson = JSON.parse(japannew)
-		                            console.log(japannewJson)
-		                            this.japannew = japannewJson
-		                        }else{
-		                            this.japannewapi();
-		                        }
-		
-		                        let japanhot = localStorage.getItem('japanhot');
-		                        if(japanhot){
-		                            let japanhotJson = JSON.parse(japanhot)
-		                            console.log(japanhotJson)
-		                            this.japanhot = japanhotJson
-		                        }else{
-		                            this.japanhotapi();
-		                        }
-		
-		                        let japannice = localStorage.getItem('japannice');
-		                        if(japannice){
-		                            let japanniceJson = JSON.parse(japannice)
-		                            console.log(japanniceJson)
-		                            this.japannice = japanniceJson
-		                            this.load=false
-		                        }else{
-		                            this.japanniceapi();
-		                        }
-		                    }
-						}else if(event.detail.slideNumber===5){
-		                    if(firstday!=day){
-		                        this.chinanewapi();
-		                        this.chinahotapi();
-		                        this.chinaniceapi();
-		                    }else{
-		                        let chinanew = localStorage.getItem('chinanew');
-		                        if(chinanew){
-		                            let chinanewJson = JSON.parse(chinanew)
-		                            console.log(chinanewJson)
-		                            this.chinanew = chinanewJson
-		                        }else{
-		                            this.chinanewapi();
-		                        }
-		
-		                        let chinahot = localStorage.getItem('chinahot');
-		                        if(chinahot){
-		                            let chinahotJson = JSON.parse(chinahot)
-		                            console.log(chinahotJson)
-		                            this.chinahot = chinahotJson
-		                        }else{
-		                            this.chinahotapi();
-		                        }
-		
-		                        let chinanice = localStorage.getItem('chinanice');
-		                        if(chinanice){
-		                            let chinaniceJson = JSON.parse(chinanice)
-		                            console.log(chinaniceJson)
-		                            this.chinanice = chinaniceJson
-		                            this.load=false
-		                        }else{
-		                            this.chinaniceapi();
-		                        }
-		                    }
-						}
-						
-					
-					});
-				
+					setTimeout(()=>{
+						this.loadimg();
+						this.loading=false
+					},500)
 				},
 				methods:{
+					loadimg(){
+						var tv = document.getElementById("tv");
+						var lazyLoadApi2 = mui('#tv').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
+						    autoDestroy: false,
+						    placeholder: '../images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
+						});
+						mui.init();
+					},
 		            hotnewapi(){
 		                axios.get(`http://xkolento.cn/hottv/new`,{
 		                    params:{}

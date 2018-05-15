@@ -53,11 +53,15 @@
 			    </div>
 			</div>
 	    
-
+			<div id="loading" v-if="loading">
+				<img class="loadpic vm" src="../images/loading.gif" alt="" />
+			</div>
 		</div>
 		<script src="../js/util.js"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	    <script type="text/javascript" src="../js/mui.lazyload.js"></script>
+		<script type="text/javascript" src="../js/mui.lazyload.img.js"></script>
     	<script src="../js/kolento.js"></script>
     	<script src="../js/movieshow.js"></script>
     	<script>
@@ -70,6 +74,7 @@
 				el: '#anime',
 				data(){
 					return{
+						loading:true,
 		                animenew:'',
 		                animehot:'',
 		                animenice:'',
@@ -150,7 +155,13 @@
 			
 				},
 				mounted(){
-
+					var anime = document.getElementById("anime");
+					var lazyLoadApi2 = mui('#anime').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
+					    autoDestroy: false,
+					    placeholder: '../images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
+					});
+					mui.init();
+					this.loading=false
 				},
 				methods:{
 		            animenewapi(){

@@ -100,11 +100,15 @@
 			    </div>
 			</div>
 	    
-
+			<div id="loading" v-if="loading">
+				<img class="loadpic vm" src="../images/loading.gif" alt="" />
+			</div>
 		</div>
 		<script src="../js/util.js"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	    <script type="text/javascript" src="../js/mui.lazyload.js"></script>
+		<script type="text/javascript" src="../js/mui.lazyload.img.js"></script>
     	<script src="../js/kolento.js"></script>
     	<script src="../js/movieshow.js"></script>
     	<script>
@@ -117,6 +121,7 @@
 				el: '#book',
 				data(){
 					return{
+						loading:true,
 		                bookhistory:'',
 		                bookphilosophy:'',
 		                bookliterature:'',
@@ -154,13 +159,13 @@
 							this.bookmanageapi();
 							this.bookbusinessapi();
 							this.bookfinanceapi();
-						},800)
+						},200)
 						setTimeout(()=>{
 							this.bookepolularapi();
 							this.bookInternetapi();
 							this.bookprogrammingapi();
 							this.bookscienceapi();
-						},1500)
+						},400)
                     }else{
 		                let bookhistory = localStorage.getItem('bookhistory');
 		                if(bookhistory){
@@ -270,7 +275,7 @@
 			                }else{
 			                    this.bookfinanceapi();
 			                }
-		                },800)
+		                },200)
 		                
 		                setTimeout(()=>{
 			                let bookepolular = localStorage.getItem('bookepolular');
@@ -308,12 +313,20 @@
 			                }else{
 			                    this.bookscienceapi();
 			                }
-		                },1500)
+		                },400)
                     }
 			
 				},
 				mounted(){
-
+					setTimeout(()=>{
+						var book = document.getElementById("book");
+						var lazyLoadApi2 = mui('#book').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
+						    autoDestroy: false,
+						    placeholder: '../images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
+						});
+						mui.init();
+						this.loading=false
+					},500)
 				},
 				methods:{
             		bookhistoryapi(){

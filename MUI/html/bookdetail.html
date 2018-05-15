@@ -13,7 +13,7 @@
 	<body>
 		<div class="moviedetail" id="detail">
             <div class="mbanner">
-	                <img class="mpic vm" :src="detail.images.large-0!=0?'https://images.weserv.nl/?url='+detail.images.large.substring(7):'../public/images/K.jpg'" alt="">
+	                <img class="mpic vm" :src="detail.images?'https://images.weserv.nl/?url='+detail.images.large.substring(7):'../public/images/K.jpg'" alt="">
 	        </div>
 	        <div class="mcontent">
 	            <div class="minfo">
@@ -26,11 +26,11 @@
 	                <p class="year normal">出版年份：{{detail.pubdate}}</p>
 	                <p class="pagenums normal">页数：{{detail.pages}}</p>
 	                <p class="binding normal">装帧：{{detail.binding}}</p>
-	                <p class="translator normal" v-if="detail.translator.length>0">翻译：{{detail.translator}}</p>
+	                <p class="translator normal" v-if="detail.translator">翻译：{{detail.translator}}</p>
 					<p class="publisher normal">出版社：{{detail.publisher}}</p>
 					<p class="price normal">价格：{{detail.price}}</p>
 	            </div>
-	            <div class="evaluate">
+	            <div class="evaluate" v-if="detail.rating">
 	                <p class="p1">评分</p>
 	                <p class="score b">{{detail.rating.average}}</p>
 	                <div v-if="detail.rating.average >= 9">
@@ -78,10 +78,15 @@
 	                {{detail.author_intro}}
 	            </p>
         	</div>
+			<div id="loading" v-if="loading">
+				<img class="loadpic vm" src="../images/loading.gif" alt="" />
+			</div>
 		</div>
 		
 		<script src="../js/mui.js"></script>
 	    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	    <script type="text/javascript" src="../js/mui.lazyload.js"></script>
+		<script type="text/javascript" src="../js/mui.lazyload.img.js"></script>
 	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     	<script src="../js/kolento.js"></script>
 		<script>
@@ -92,7 +97,8 @@
 				el:'#detail',
 				data(){
 					return{
-		                detail:''
+		                detail:'',
+		                loading:true
 					}
 				},
 				created(){
@@ -115,6 +121,15 @@
 			                })
 			            })
 					}
+				},
+				mounted(){
+					var detail = document.getElementById("detail");
+					var lazyLoadApi2 = mui('#detail').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
+					    autoDestroy: false,
+					    placeholder: '../images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
+					});
+					mui.init();
+					this.loading=false
 				}
 			})
 		</script>

@@ -1,6 +1,7 @@
 
 /*公共样式*/
 html,body{background: #fff;touch-action: none;}
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {border-bottom: none;}
 
 /*轮播菜单*/
 #app .mui-slider-item:nth-child(1) {background: url('../images/bj16.jpg') no-repeat center center;background-size: cover;}
@@ -67,8 +68,8 @@ background-size: 100%;width: 75px;height: 15px;}
 #indexscroll .mui-slider-item {overflow: scroll;}
 
 /*选项卡*/
-#index .mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {padding-bottom: 100px;}
-.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {padding-bottom: 50px;}
+#index .mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {padding-bottom: 105px;}
+.mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item {padding-bottom: 55px;}
 
 /*信息详情页*/
 #detail .mbanner {display:flex;justify-content: center;align-items: center;background:rgba(30,29,35,0.75);}
@@ -88,6 +89,7 @@ border-radius:8px;}
 #detail .mstory {padding:10px}
 #detail .mstory h2{color:#aaa;font-size: 16px;}
 #detail .mstory .p1 {font-size: 14px;margin-top: 7px;}
+#detail .actor-name {line-height: 20px;margin-top: 3px;}
 
 .actor {margin: 10px;overflow: hidden;}
 #charactor h2{margin-bottom: 5px;}
@@ -143,7 +145,7 @@ border-radius:8px;}
 
 /*search*/
 #search .search-con {padding: 10px;}
-/*#search .search-box {border-bottom: 1px solid rgb(231,231,231);box-shadow:0 0 5px rgb(231,231,231)}*/
+#search .search-box {position: absolute;width: 100%;top: 0;left: 0;z-index:999;}
 #search .mui-input-row .searchpic {width: 15px;transform: scale(1.05,1.05);}
 #search .mui-input-row {background: #fff;border-radius:8px;width: 84%;background: rgb(231,231,231);}
 #search .mui-input-row label {width: 13%;padding:9px 10px;line-height: 1;}
@@ -226,3 +228,8 @@ text-align: center;padding-bottom: 10px;letter-spacing: 0;}
 #ranking .musicicon {width: 15px;position: fixed;top: 15px;right: 15px;z-index:888;}
 #ranking .article {width: 58%;color:#555;font-size: 15px;position: absolute;top: 20%;left: 30%;}
 #ranking .article p{line-height: 30px;font-family: STFangsong,Fangsong,FangSong_GB2312,STSong,serif;}
+
+.about {position: fixed;bottom: 20px;left: 0;width: 100%;display:flex;justify-content: center;}
+.about .authorpic {width: 28px;height: 32px;}
+#loading {position: fixed;width: 100%;height: 100%;top: 0;left: 0;display: flex;justify-content: center;align-items: center;z-index:600;background: #fff;}
+#loading .loadpic {width: 150px;}

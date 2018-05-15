@@ -147,6 +147,8 @@
 	    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.2/js/swiper.min.js"></script>
 	    <script src="../js/subject.js"></script>
+	    <script type="text/javascript" src="../js/mui.lazyload.js"></script>
+		<script type="text/javascript" src="../js/mui.lazyload.img.js"></script>
     	<script src="../js/kolento.js"></script>
     	<script>
     		(function() {
@@ -186,6 +188,14 @@
 						this.newmsg();
 					
 			 		})
+			 	},
+			 	mounted(){
+					var ranking = document.getElementById("ranking");
+					var lazyLoadApi2 = mui('#ranking').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
+					    autoDestroy: false,
+					    placeholder: '../images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
+					});
+					mui.init();
 			 	},
 			 	methods:{
 			 		music(){
