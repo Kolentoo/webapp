@@ -26,14 +26,14 @@
 					<p class="cancel fr" @tap="close()">取消</p>
 				</div>
 				
-				<div class="mui-slider">
+				<div class="mui-slider mslide">
 				    <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
 				        <a class="mui-control-item  mui-active" href="#item1">影视</a>
 				        <a class="mui-control-item" href="#item2">图书</a>
 				    </div>
 				    <div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6"></div>
 				    <div class="mui-slider-group">
-				        <div id="item1" class="mui-slider-item mui-control-content mui-active">
+				        <div id="item1" class="mui-slider-item search-slide mui-control-content mui-active">
 				        	<div class="recommend" v-if="!searched">
 				        		<ul class="mui-table-view recon">
 			        		        <li class="mui-table-view-cell" @tap="film()">
@@ -102,7 +102,7 @@
 					        </div>
 									        
 				        </div>
-				        <div id="item2" class="mui-slider-item mui-control-content">
+				        <div id="item2" class="mui-slider-item search-slide mui-control-content">
 				        	<div class="recommend" v-if="!searched">
 				        		<ul class="mui-table-view recon">
 			        		        <li class="mui-table-view-cell" @tap="read()">
@@ -180,8 +180,8 @@
 			</div>
 
 		    <div class="about" v-if="!searched">
-		    	<a href="https://m.weibo.cn/p/1005051921492471" target="_blank">
-		    		<img class="authorpic vm" src="../images/k.jpg" alt="" />
+		    	<a class="block" href="https://m.weibo.cn/p/1005051921492471" target="_blank">
+		    		<img class="authorpic vm" src="../images/K.jpg" alt="" />
 		    	</a>
 		    </div>
 		    
@@ -222,6 +222,7 @@
 
 	  			},
 	  			mounted(){
+
 	  			},
     			methods:{
     				close(){
@@ -288,6 +289,13 @@
 		                        this.searchtitle=res.data.title
 		                        this.searched =true
 		                        this.words=''
+								var search = document.getElementById("search");
+								var lazyLoadApi2 = mui('#search').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
+								    autoDestroy: false,
+								    placeholder: '../images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
+								});
+								mui.init();
+		                        this.loading=false
 		                    })
 		                    
 		                    axios.get(`https://xkolento.cn/booksearchwords/${keywords}`,{
@@ -297,14 +305,20 @@
 		                        this.bookcounts=res.data.books.length
 		                        this.searched = true
 		                        this.words=''
+								var search = document.getElementById("search");
+								var lazyLoadApi2 = mui('#search').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
+								    autoDestroy: false,
+								    placeholder: '../images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
+								});
+								mui.init();
+								let group2 = document.getElementsByClassName('search-slide');
+								let newGroup2 = [...new Set(group2)]
+								newGroup2.map(item=>{
+									item.style.height=bHeight+'px'
+								})
 		                    })
-							var search = document.getElementById("search");
-							var lazyLoadApi2 = mui('#search').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
-							    autoDestroy: false,
-							    placeholder: '../images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
-							});
-							mui.init();
-							this.loading=false
+
+							
 		                }else{
 		                	mui.toast('请输入关键字')
 		                }

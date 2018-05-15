@@ -177,6 +177,8 @@ border-radius:8px;}
 #search .mui-navigate-right {display: flex;align-items: center;}
 #search .mui-navigate-right em{margin-left: 5px;color:#d74d40;}
 #search .historyicon {width: 15px;}
+#search .mslide {overflow-y: scroll;}
+#search .search-slide {overflow: scroll;}
 
 /*ranking*/
 

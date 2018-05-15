@@ -428,13 +428,16 @@
 			
 				},
 				mounted(){
-					var index = document.getElementById("index");
-					var lazyLoadApi1 = mui('#index').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
-					    autoDestroy: false,
-					    placeholder: '../images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
-					});
-					mui.init();
-					this.loading=false
+					setTimeout(()=>{
+						var index = document.getElementById("index");
+						var lazyLoadApi1 = mui('#index').imageLazyload({//.rich_media_content指定lazyload实施区域的div class
+						    autoDestroy: false,
+						    placeholder: 'images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
+						});
+						mui.init();
+						this.loading=false
+					},200)
+
 				},
 				methods:{
 					nowapi(){
