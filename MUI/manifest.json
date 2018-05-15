@@ -4,8 +4,8 @@
 		"iPhone",
 		"iPad"
 	],
-	"id": "H52F7D314",/*应用的标识，创建应用时自动生成，勿手动修改*/
-	"name": "MUI",/*应用名称，程序桌面图标名称*/
+	"id": "H582FAEA1",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "Kolento",/*应用名称，程序桌面图标名称*/
 	"version": {
 		"name": "1.0",/*应用版本名称*/
 		"code": ""
@@ -255,7 +255,7 @@
 		},
 		"splashscreen": {
 			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
-			"waiting": true
+			"waiting": false,"delay":"500"
 		},
 		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
 		"runmode": "normal",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
@@ -324,7 +324,7 @@
 						"retina40": "",/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
 						"retina47": "",/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
 						"retina55": "",/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
-						"retina55l": "","iphonex":"C:/Users/51583/Desktop/222.png"
+						"retina55l": "","iphonex":"C:/Users/Administrator/Desktop/start.png"
 					},
 					"ipad": {
 						"portrait": "", /*iPad竖屏启动图片，分辨率：768x1004*/
