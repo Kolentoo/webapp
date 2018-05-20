@@ -12,7 +12,7 @@
 	    <link rel="stylesheet" href="css/kolento.css" />
 	</head>
 	
-	<body>
+	<body>		
 		<div class="index" id="index">
 			
 			<div class="mui-slider" id="mslider">
@@ -317,15 +317,19 @@
 		                this.comingapi();
 		                this.topapi();
 		                
-		                this.toplistapi();
-		                this.topstoryapi();
-		                this.tophappyapi();
-		                this.topactapi();
-		                this.toploveapi();
-		                this.topscientistapi();
-		                this.topscareapi();
-		                this.tophorrorapi();
-		                this.topdisasterapi();
+		                setTimeout(()=>{
+		                	this.toplistapi();
+			                this.topstoryapi();
+			                this.tophappyapi();
+			                this.topactapi();
+			                this.toploveapi();
+			                this.topscientistapi();
+			                this.topscareapi();
+			                this.tophorrorapi();
+			                this.topdisasterapi();
+		                },200)
+		                
+
 		            }else{
 		                let now = localStorage.getItem('now');
 		                if(now){
@@ -353,77 +357,81 @@
 		                }else{
 		                    this.topapi();
 		                }
-
-		                let anime = localStorage.getItem('anime');
-		                if(anime){
-		                    let animeJson = JSON.parse(anime)
-		                    this.anime = animeJson
-		                }else{
-		                    this.toplistapi();
-		                }
 		                
-		                let story = localStorage.getItem('stories');
-		                if(story){
-		                    let storyJson = JSON.parse(story)
-		                    this.story = storyJson
-		                }else{
-		                    this.topstoryapi();
-		                }
-		
-		                let happy = localStorage.getItem('happy');
-		                if(happy){
-		                    let happyJson = JSON.parse(happy)
-		                    this.happy = happyJson
-		                }else{
-		                    this.tophappyapi();
-		                }
-		
-		                let act = localStorage.getItem('act');
-		                if(act){
-		                    let actJson = JSON.parse(act)
-		                    this.act = actJson
-		                }else{
-		                    this.topactapi();
-		                }
-		
-		                let love = localStorage.getItem('love');
-		                if(love){
-		                    let loveJson = JSON.parse(love)
-		                    this.love = loveJson
-		                }else{
-		                    this.toploveapi();
-		                }
-		
-		                let scientist = localStorage.getItem('scientist');
-		                if(scientist){
-		                    let scientistJson = JSON.parse(scientist)
-		                    this.scientist = scientistJson
-		                }else{
-		                    this.topscientistapi();
-		                }
-		
-		                let scare = localStorage.getItem('scare');
-		                if(scare){
-		                    let scareJson = JSON.parse(scare)
-		                    this.scare = scareJson
-		                }else{
-		                    this.topscareapi();
-		                }
-		
-		                let horror = localStorage.getItem('horror');
-		                if(horror){
-		                    let horrorJson = JSON.parse(horror)
-		                    this.horror = horrorJson
-		                }else{
-		                    this.tophorrorapi();
-		                }
-		
-		                let disaster = localStorage.getItem('disaster');
-		                if(disaster){
-		                    let disasterJson = JSON.parse(disaster)
-		                    this.disaster = disasterJson
-		                }else{
-		                }
+		                setTimeout(()=>{
+		                	
+			                let anime = localStorage.getItem('anime');
+			                if(anime){
+			                    let animeJson = JSON.parse(anime)
+			                    this.anime = animeJson
+			                }else{
+			                    this.toplistapi();
+			                }
+			                
+			                let story = localStorage.getItem('stories');
+			                if(story){
+			                    let storyJson = JSON.parse(story)
+			                    this.story = storyJson
+			                }else{
+			                    this.topstoryapi();
+			                }
+			
+			                let happy = localStorage.getItem('happy');
+			                if(happy){
+			                    let happyJson = JSON.parse(happy)
+			                    this.happy = happyJson
+			                }else{
+			                    this.tophappyapi();
+			                }
+			
+			                let act = localStorage.getItem('act');
+			                if(act){
+			                    let actJson = JSON.parse(act)
+			                    this.act = actJson
+			                }else{
+			                    this.topactapi();
+			                }
+			
+			                let love = localStorage.getItem('love');
+			                if(love){
+			                    let loveJson = JSON.parse(love)
+			                    this.love = loveJson
+			                }else{
+			                    this.toploveapi();
+			                }
+			
+			                let scientist = localStorage.getItem('scientist');
+			                if(scientist){
+			                    let scientistJson = JSON.parse(scientist)
+			                    this.scientist = scientistJson
+			                }else{
+			                    this.topscientistapi();
+			                }
+			
+			                let scare = localStorage.getItem('scare');
+			                if(scare){
+			                    let scareJson = JSON.parse(scare)
+			                    this.scare = scareJson
+			                }else{
+			                    this.topscareapi();
+			                }
+			
+			                let horror = localStorage.getItem('horror');
+			                if(horror){
+			                    let horrorJson = JSON.parse(horror)
+			                    this.horror = horrorJson
+			                }else{
+			                    this.tophorrorapi();
+			                }
+			
+			                let disaster = localStorage.getItem('disaster');
+			                if(disaster){
+			                    let disasterJson = JSON.parse(disaster)
+			                    this.disaster = disasterJson
+			                }else{
+			                }
+		                
+		                },200)
 		            }
 			
 				},
@@ -435,8 +443,8 @@
 						    placeholder: 'images/k.jpg'//在js里指定临时占位图片，需自行准备并指定正确的本地路径或远程路径
 						});
 						mui.init();
-						this.loading=false
-					},200)
+						this.loading=false 
+					},300)
 
 				},
 				methods:{
